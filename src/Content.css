@@ -1,0 +1,32 @@
+.content-container{
+    max-width: 1100px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 2fr 1fr;
+    position: fixed;
+    height: 70%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top:10%;
+       
+}
+img{
+    max-width: 100%;
+    max-height: 400px;
+}
+h2{
+    color: #a65e3f;
+}
+p{
+    font-style: italic;
+}
+a{
+    text-decoration: none;
+    font-weight:700;
+    color: #a65e3f;
+}

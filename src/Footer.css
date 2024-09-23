@@ -1,0 +1,26 @@
+.footer-container{
+    background-color: black;
+    height: 20%;
+    position: fixed;
+    bottom:0;;
+    right: 0;
+    left:0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.footer-list{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+}
+.footer-list li{
+    color:white;
+    cursor: pointer;
+}
