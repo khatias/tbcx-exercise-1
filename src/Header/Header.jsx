@@ -1,5 +1,6 @@
 import React from 'react'
-import navLogo from './assets/wg_horizontal_web.png'
+import navLogo from '../assets/wg_horizontal_web.png'
+
 import './Header.css'
 
 
