@@ -54,35 +54,4 @@ export default function Cards() {
   );
 }
 
-    
-
-
-
-// function Product({
-//   title,
-//   description
-// }) {
-//   return (
-//     <section >
-//       <h2>{title}</h2>
-//         <p>{description}</p>
-//     </section>
-//   );
-// }
-
-// export default function Cards() {
-//   return (
-//     <div>
-   
-//       <Product
-//         title="Maria Skłodowska-Curie"
-//         description="physicist and chemist"
-//       />
-
-//     <Product
-//         title="hello"
-//         description="xell"
-//       />
-//     </div>
-//   );
-// }
+  

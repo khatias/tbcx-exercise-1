@@ -3,21 +3,18 @@ import './Footer.css'
 
 function Footer() {
   return (
-    <div className='footer-container'>
+    <footer>
         <ul className='footer-list'>
             <li>Gift Cards</li>
             <li>Contact</li>
-            <li>
-            Careers (coming soon)</li>
+            <li>Careers (coming soon)</li>
             <li>Merch</li>
-            <li>
-            FAQ</li>
-            <li></li>
+            <li>FAQ</li>
         </ul>
         <div>
             <a href=""></a>
         </div>
-    </div>
+    </footer>
   )
 }
 

@@ -1,24 +1,28 @@
 .header{
     max-width: 1100px;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid black;
+}
+
+nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
-    border-bottom: 1px solid black;
-    height: 10%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    
+    width: 100%;
+}
+a{
+    text-decoration: none;
+    color: #1d2021;
 }
 
 .header-logo{
     max-width: 200px;
 }
+
 .header-list{
     list-style-type: none;
     display: flex;
@@ -29,8 +33,15 @@
     color: #1d2021;
     font-weight: 700;
     cursor: pointer;
+    padding: 6px;
 }
+
 .header-list li:hover{
+    background-color: #a65e3f;
+    color:#fff;
+}
+
+.header-list a:hover{
     background-color: #a65e3f;
     color:#fff;
 }

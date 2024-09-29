@@ -1,6 +1,11 @@
 #root {
   margin: 0 auto;
-  max-height: 100vh;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
 
 }
 
+body{
+  height: 100vh;
+}
