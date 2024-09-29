@@ -4,7 +4,7 @@ import fragrantDuck from '../../assets/fragrant-duck.jpg';
 import assamPrawn from '../../assets/assam-prawn.jpg'; 
 
 
-function Card({ product}) {
+function Card({product}) {
   return (
     <div className='card' >
         <img
