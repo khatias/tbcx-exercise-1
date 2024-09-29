@@ -4,9 +4,11 @@ import './ContactForm.css'
 function ContactForm() {
   return (
     <main className='contact-main'>
-        <h1>Contact Us</h1>
+        
 
     <form action="?">
+    <h1>Contact Us</h1>
+
         <div className='name'>
             <div  className='f-name'>
                 <label htmlFor="first-name">Name</label>
@@ -34,7 +36,13 @@ function ContactForm() {
         </div> 
         
         <button className='submit-button'>SUBMIT</button>
+
+
     </form>
+    <p className='contactNote'>
+        If you prefer to call, please reach out to us at (123) 456-7890.
+    </p>
+
     </main>
   )
 }
