@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import ContactPage from './pages/Contact/ContactPage.jsx'
 import AboutPage from './pages/About/AboutPage.jsx'
+import AssigmentThree from './pages/assignment3/AssigmentThree.jsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -24,6 +25,12 @@ const router = createBrowserRouter([
     path: "AboutPage",
     element: <AboutPage/>,
   },
+
+  {
+    path: "Asigment-3",
+    element: <AssigmentThree/>,
+  },
+
 
   
 ]);

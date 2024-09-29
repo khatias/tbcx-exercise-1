@@ -14,9 +14,10 @@ function Header() {
         <ul className='header-list'>
         <li><Link to="/ContactPage">Contact</Link></li>
         <li><Link to="/AboutPage"> About Us </Link></li>
-        <li>order online</li>
+        <li><Link to="/AboutPage"> About Us </Link></li>
+        <li><Link to="/Asigment-3"> Asigment-3 </Link></li>
         <li>Reservations</li>
-        <li>About</li>
+     
         </ul>
       </nav>
     </header>
