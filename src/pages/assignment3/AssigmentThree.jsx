@@ -1,6 +1,7 @@
 import React from 'react'
 import './AssigmentThree.css'
 import Header from '../../Header/Header';
+import Footer from '../../Footer/Footer';
 
 function AsigmentThree() {
   const obj = {
@@ -37,6 +38,7 @@ function AsigmentThree() {
     <>
     <Header />
     <div className='table-container'>{list}</div>;
+    <Footer />
     </>
   ) 
 

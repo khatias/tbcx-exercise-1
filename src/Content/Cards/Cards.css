@@ -1,0 +1,40 @@
+
+.cards-container{
+    padding-top: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 10%;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 80px;
+
+}
+
+.card{
+    border: 1px solid gray;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.card-content{
+    padding: 16px;
+    display: grid;
+    gap: 15px;
+}
+
+.card-image{
+    height: 200px;
+    width: 100%;
+}
+
+.card p{
+    min-height: 72px;
+}
+
+.card button{
+    height: 27px;
+    background-color: #a65e3f;
+    color: white;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;;
+}
