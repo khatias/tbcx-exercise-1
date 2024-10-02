@@ -1,0 +1,33 @@
+.blogs-container{
+    padding-top: 60px;
+}
+.blog-card{
+    display: flex;
+    height: 160px;
+    gap:40px;
+    padding-bottom: 8px;
+    border-bottom:1px solid black;
+    margin-bottom: 40px;
+}
+
+.blog-image{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.blog-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.continue-reading-link{
+    background-color:rgb(237 182 84) ;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 8px;
+    width: 190px;
+    border-radius: 5px;
+    font-size: 15px;
+    
+}
+
