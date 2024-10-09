@@ -1,0 +1,51 @@
+.blogs-container{
+    box-shadow: 0 30px 50px 0 rgba(1, 1, 1, .15);
+    padding-top: 40px;
+    margin-top:40px;
+}
+main{
+    background-color: #f8f8f8;
+}
+
+.pagination{
+    box-shadow: 0 30px 50px 0 rgba(1, 1, 1, .15);
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: end;
+    padding: 40px;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  button:hover:not(:disabled) {
+    transform: scale(1.1);
+  }
+  
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: #007bff;
+    transition: fill 0.2s;
+  }
+  
+  button:hover svg {
+    fill: #0056b3;
+  }
+  
+  span {
+    font-size: 16px;
+    margin: 0 10px;
+  }

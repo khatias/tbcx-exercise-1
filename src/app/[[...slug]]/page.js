@@ -1,8 +1,12 @@
-import '../../app.css'
+
 import { ClientOnly } from './client'
  
 export function generateStaticParams() {
-  return [{ slug: [''] }]
+  return [
+    { slug: [''] }, // or any other slugs you need
+    { slug: ['favicon.ico'] } // Add favicon.ico if needed
+  ];
+  
 }
  
 export default function Page() {
