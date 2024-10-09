@@ -1,0 +1,23 @@
+*{
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+.table-container{
+    height: 100vh;
+    margin-top:80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table{
+    border: 2px solid gray;
+    min-width: 1000px;
+}
+
+td, th{
+    border: 1px solid gray;
+    padding: 20px;
+}
