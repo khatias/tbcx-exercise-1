@@ -1,47 +1,96 @@
-// // components/BlogPostPage.js
-// import dislike from '../../assets/dislike.svg'; 
-// import like from '../../assets/like.svg'; 
-// import Header from '../../components/Header/Header'
-// import Footer from '../../components/Footer/Footer'
-// import './BlogCard.css'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/Footer/Footer'
+import './ProductPage.css'
+import { FaStar } from 'react-icons/fa'; 
 
-// const BlogPostPage = ({ post }) => {
-//     return (
-//         <>
-//         <Header/>
-//         <main className='blogPage-wrapper'>
-//         <div className="blog-card">
-//         <h2>{post.title}</h2>
-//         <p>{post.body}</p>
-  
-//         <div className='tags-container'>
-//           {post.tags.map((tag, index) => (
-//             <span key={index} className="tag">#{tag}</span>
-//           ))}
-//         </div>
-        
-//         <div className='reactions-box'>
-//           <span className='reaction'>
-//             {post.reactions.likes}
-//             <img className='reaction-img' src={like.src} alt="dislike-icon" />
-//           </span>
-  
-//           <span className='reaction'>
-//             {post.reactions.dislikes}
-//             <img className='reaction-img' src={dislike.src} alt="dislike-icon" />
-//           </span>
-  
-//           <span className='reaction'>
-//             {post.views}
-//             <svg className='reaction-img'  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.188 10.9343C20.5762 11.4056 20.7703 11.6412 20.7703 12C20.7703 12.3588 20.5762 12.5944 20.188 13.0657C18.7679 14.7899 15.6357 18 12 18C8.36427 18 5.23206 14.7899 3.81197 13.0657C3.42381 12.5944 3.22973 12.3588 3.22973 12C3.22973 11.6412 3.42381 11.4056 3.81197 10.9343C5.23206 9.21014 8.36427 6 12 6C15.6357 6 18.7679 9.21014 20.188 10.9343Z" fill="#2A4157" fill-opacity="0.24"></path> <circle cx="12" cy="12" r="3" fill="#222222"></circle> </g></svg>
-//           </span> 
-//         </div>      
-//       </div> 
-//       </main>
-//       <Footer/>
-//       </>
-//     );
-//   };
-  
-//   export default BlogPostPage;
-  
+import React from 'react'
+
+
+function ProductPage({product }) {
+    const { width, height, depth } = product.dimensions;
+
+    const renderStars = () => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+          stars.push(
+            <FaStar key={i} color={i <= product.rating ? '#a65e3f' : 'gray'} /> 
+          );
+        }
+        return stars;
+      };
+  return (
+    <>
+      <Header />
+      <main>
+        <div className='container'>
+            <div className='product-text-content'>
+                <h1>{product.title}</h1>
+                <p className='product-description'>{product.description}</p>
+            </div>
+            <div className='product-hero'>
+
+                <img src={product.images[0]} alt={product.title} className="product-image" />
+
+                <div className='product-detail'>
+                    <p className='product-category'><strong>Category:</strong> {product.category}</p>
+                    <p className='product-price'><strong>Price:</strong> ${product.price}</p>
+                    <p className='product-discount-price'><strong>Discount Price:</strong> ${product.discountPercentage}</p>
+
+                    <div className="product-rating">
+                        {renderStars()} <span>{product.rating}</span>
+                    </div>
+
+                    <p className='stock'><strong>Stock:</strong> {product.stock}</p>
+                    <p className='availability-status'><strong>Availability Status:</strong> {product.availabilityStatus}</p>
+                </div>
+                
+            </div>
+       
+            <div className='product-tags-container'>
+            {product.tags.map((tag, index) => (
+                <span key={index} className="tag">#{tag}</span>
+            ))}
+            </div>
+
+
+            <ul className='product-dimensions'>
+            <li><strong>Width:</strong> {width} cm</li>
+            <li><strong>Height:</strong> {height} cm</li>
+            <li><strong>Depth:</strong> {depth} cm</li>
+            </ul>
+
+            <p className='warranty'><strong>Warranty:</strong> {product.warrantyInformation}</p>
+            <p className='shipping-information'><strong>Shipping Information:</strong> {product.shippingInformation}</p>
+
+            <p className='return-policy'><strong>Return Policy:</strong> {product.returnPolicy}</p>
+            <p className='minimum-order-quantity'><strong>Minimum Order Quantity:</strong> {product.minimumOrderQuantity}</p>
+            
+            <div className='product-reviews'>
+            <h2>Reviews</h2>
+            {product.reviews.length === 0 ? (
+                <p>No reviews yet.</p>
+            ) : (
+                product.reviews.map((review, index) => (
+                <div key={index} className='review'>
+                    <p><strong>Reviewer:</strong> {review.reviewerName}</p>
+                    <p><strong>Rating:</strong> {review.rating} ★</p>
+                    <p><strong>Comment:</strong> {review.comment}</p>
+                    <p><strong>Date:</strong> {new Date(review.date).toLocaleDateString()}</p>
+                </div>
+                ))
+            )}
+            </div>
+
+            <div className='meta-information'>
+            <p><strong>Barcode:</strong> {product.meta.barcode}</p>
+            <p><strong>QR Code:</strong> <img src={product.meta.qrCode} alt="QR Code" className="qr-code" /></p>
+            </div>
+        </div>
+      </main>
+      <Footer />
+    </>
+    
+  )
+}
+
+export default ProductPage

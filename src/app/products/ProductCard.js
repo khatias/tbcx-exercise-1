@@ -1,7 +1,9 @@
 import react from 'react';
-import './ProductCard.css'
-import Link from 'next/link';
 import { FaStar } from 'react-icons/fa'; 
+import './ProductCard.css'
+import './ProductList.css'
+import Link from 'next/link';
+
 
 
 
@@ -28,9 +30,12 @@ function ProductCard({ product }) {
           {renderStars()} <span>{product.rating}</span>
         </div>
         </div>
-        <button  className="view-details-button">
-        View Details
-        </button>
+        <Link href={`/products/${product.id}`}>
+  <button className="view-details-button">
+    View Details
+  </button>
+</Link>
+
       </div>
     );
   }
