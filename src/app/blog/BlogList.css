@@ -1,5 +1,5 @@
 .blogs-container{
-    box-shadow: 0 30px 50px 0 rgba(1, 1, 1, .15);
+    background-color:rgb(240, 242, 242);
     padding-top: 40px;
     margin-top:40px;
 }

@@ -4,7 +4,17 @@
     margin-right: auto;
     gap:15px;
     padding-bottom: 40px;
+    transition: transform 0.3s ease; 
+    cursor: pointer; 
+    padding: 60px;
 }
+
+.blog-card-hover:hover {
+    transform: scale(1); 
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+  }
+
 .blog-card h2{
   
     padding-bottom: 10px;
@@ -40,5 +50,13 @@
 .reaction-img{
     width: 20px;
     
+}
+ 
+.blogPage-wrapper{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
