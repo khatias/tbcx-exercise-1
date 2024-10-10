@@ -17,7 +17,7 @@ function Header() {
           <li><Link href="/about"> About Us </Link></li>
           <li><Link href="/blog"> Blog </Link></li>
           <li><Link href="/assignment3"> Asigment3 </Link></li>
-          <li>Reservations</li>
+          <li><Link href="/products">Products</Link></li>
         </ul>
         <Link className='profile-link' href="/profile">profile</Link>
     

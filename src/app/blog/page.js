@@ -18,19 +18,19 @@ function Blog() {
         const response = await fetch(`${blogUrl}?limit=${limit}&skip=${(page - 1) * limit}`);
         const data = await response.json();
         setbloglist(data.posts);
-        setTotalPages(Math.ceil(data.total / limit)); // Assuming the API returns total number of posts
+        setTotalPages(Math.ceil(data.total / limit)); 
       } catch (error) {
         console.log(error);
         setbloglist([]);
       }
     }
 
-    fetchBlogs(currentPage); // Fetch for the current page
+    fetchBlogs(currentPage); 
   }, [currentPage]);
 
   const handlePagination = (page) => {
     if (page > 0 && page <= totalPages) {
-      setCurrentPage(page); // Update current page
+      setCurrentPage(page); 
     }
   };
 
