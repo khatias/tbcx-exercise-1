@@ -1,23 +1,31 @@
 import BlogPostPage from "../BlogPostPage";
-export async function generateStaticParams() {
-    const response = await fetch('https://dummyjson.com/posts');
-    const data = await response.json();
-  
-    return data.posts.map((post) => ({
-      slug: post.id.toString(), 
-    }));
-  }
-  
-  export default async function BlogPost({ params }) {
-    const { slug } = params;
+
+
+async function getPost(slug) {
+  try {
+    const res = await fetch(`https://dummyjson.com/posts/${slug}`);
+    if (!res.ok) {
+      throw new Error(`Could not find post with id ${slug}`);
+    }
+    return await res.json();
     
-    const response = await fetch(`https://dummyjson.com/posts/${slug}`);
-    const post = await response.json();
-  
-    return (
-      <div>
-        <BlogPostPage post={post} />
-      </div>
-    );
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    return null; 
   }
-  
+}
+
+export async function generateStaticParams() {
+  const { posts } = await (await fetch("https://dummyjson.com/posts")).json(); 
+  return posts.map(({ id }) => ({ slug: id.toString() }));
+}
+
+export default async function Post({ params }) {
+  const post = await getPost(params.slug);
+
+  return (
+    <div>
+      {post ? <BlogPostPage post={post} /> : <div>Error loading post.</div>}
+    </div>
+  );
+}
