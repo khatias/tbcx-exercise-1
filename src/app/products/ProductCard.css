@@ -39,3 +39,9 @@ h4{
     max-width: 250px;
     padding-bottom: 16px;
 }
+.filter-wrapper{
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { useDebounce } from 'use-debounce'
 import { FaSearch } from 'react-icons/fa'
+import './search.css'
 
 function Search() {
     const router = useRouter()
@@ -19,13 +20,14 @@ function Search() {
     }, [query, router])
   return (
     <div>
-        <div>
+        <div className='search-bar-wrapper'>
+        <FaSearch className='search-icon' />
             <input 
+            className='search-bar'
             value={text}
             placeholder='search product'
             onChange={ e => setText(e.target.value)}
             />
-              
         </div>
     </div>
   )
