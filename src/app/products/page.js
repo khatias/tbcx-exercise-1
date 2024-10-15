@@ -1,44 +1,36 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
-import Footer from '../../components/Footer/Footer'
-import ProductList from './ProductList'
+import React from 'react';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+import ProductList from './ProductList';
 
-const productsUrl= 'https://dummyjson.com/products'
+const productsUrl = 'https://dummyjson.com/products';
 
-function Products() {
-  const [productList, setProductList] = useState([]);
-
- 
-
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await fetch(productsUrl);
-        const data = await response.json();
-        setProductList(data.products);
-       
-      } catch (error) {
-        console.log(error);
-        setProductList([]);
-      }
+async function fetchProducts() {
+  try {
+    const response = await fetch(productsUrl);
+    if (!response.ok) {
+      throw new Error('Failed to fetch products');
     }
+    const data = await response.json();
+    return data.products;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
 
-    fetchProducts(); 
-  }, []);
-
-;
+export default async function Products() {
+  const productList = await fetchProducts();
 
   return (
     <>
       <Header />
       <main>
-      <ProductList productList={productList} />
-    
+        <ProductList productList={productList} />
       </main>
       <Footer />
     </>
   );
 }
 
-export default Products;
+

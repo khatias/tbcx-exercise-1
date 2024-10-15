@@ -12,8 +12,12 @@ export async function generateStaticParams() {
 
 export default async function ProductDetails({ params }) {
     const { slug } = params;
-    
     const response = await fetch(`https://dummyjson.com/products/${slug}`);
+
+    if (!response.ok) {
+        return <div>Error loading product.</div>;
+    }
+
     const product = await response.json();
   
     return (
@@ -22,4 +26,3 @@ export default async function ProductDetails({ params }) {
         </div>
     );
 }
-
