@@ -3,9 +3,7 @@
     flex-direction: column;
     padding-top: 60px;
 }
-.product-description{
-    text-align: center;
-}
+
 .product-hero{
     display: flex;
     justify-content: center;

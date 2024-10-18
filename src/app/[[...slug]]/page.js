@@ -3,8 +3,12 @@ import { ClientOnly } from './client'
  
 export function generateStaticParams() {
   return [
-    { slug: [''] }, // or any other slugs you need
-    { slug: ['favicon.ico'] } // Add favicon.ico if needed
+    { slug: [''] },
+    { slug: ['favicon.ico'] } ,
+    { slug: ["products"] },
+     { slug: ["about"] },
+     { slug: ["contact"] },
+     { slug: ["blog"] },
   ];
   
 }
