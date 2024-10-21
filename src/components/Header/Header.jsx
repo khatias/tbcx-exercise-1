@@ -1,29 +1,34 @@
-import React from 'react'
-import navLogo from '../../assets/wg_horizontal_web.png'
-import Link from 'next/link'
-import './Header.css'
+'use '
 
-
-
-
+import navLogo from '../../assets/wg_horizontal_web.png';
+import LogoutButton from '../LogoutButton/LogoutButton';
+import Link from 'next/link';
+import './Header.css';
 
 function Header() {
+ 
   return (
     <header>
       <nav className='container'>
-        <Link href='/'> <img className='header-logo' src={navLogo.src} alt="cafe logo" /></Link>
+        <Link href='/'>
+          <img className='header-logo' src={navLogo.src} alt="cafe logo" />
+        </Link>
         <ul className='header-list'>
           <li><Link href="/contact">Contact</Link></li>
-          <li><Link href="/about"> About Us </Link></li>
-          <li><Link href="/blog"> Blog </Link></li>
-          <li><Link href="/assignment3"> Asigment3 </Link></li>
+          <li><Link href="/about">About Us</Link></li>
+          <li><Link href="/blog">Blog</Link></li>
+          {/* <li><Link href="/assignment3">Assignment3</Link></li> */}
           <li><Link href="/products">Products</Link></li>
+          <li><LogoutButton /> </li>
+          <li><Link href="/login">Login</Link></li>
+              
+          
+          
         </ul>
-        <Link className='profile-link' href="/profile">profile</Link>
-    
+        <Link className='profile-link' href="/profile">Profile</Link>
       </nav>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
