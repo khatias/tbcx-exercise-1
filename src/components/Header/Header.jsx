@@ -1,7 +1,7 @@
 'use '
 
 import navLogo from '../../assets/wg_horizontal_web.png';
-import LogoutButton from '../LogoutButton/LogoutButton';
+// import LogoutButton from '../LogoutButton/LogoutButton';
 import Link from 'next/link';
 import './Header.css';
 
@@ -19,11 +19,8 @@ function Header() {
           <li><Link href="/blog">Blog</Link></li>
           {/* <li><Link href="/assignment3">Assignment3</Link></li> */}
           <li><Link href="/products">Products</Link></li>
-          <li><LogoutButton /> </li>
-          <li><Link href="/login">Login</Link></li>
-              
-          
-          
+          <a href="/api/auth/login">Login</a>
+          <a href="/api/auth/logout">Logout</a>
         </ul>
         <Link className='profile-link' href="/profile">Profile</Link>
       </nav>

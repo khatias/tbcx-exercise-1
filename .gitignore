@@ -27,3 +27,6 @@ dist-ssr
 .next
 next-env.d.ts
 dist
+
+#local env files
+.env*.local
