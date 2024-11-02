@@ -1,5 +1,4 @@
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+
 import BlogList from './blogList';
 
 
@@ -16,11 +15,11 @@ export default async function Blog() {
 
   return (
     <>
-      <Header />
+  
       <main>
         <BlogList bloglist={bloglist} />
       </main>
-      <Footer />
+ 
     </>
   );
 }

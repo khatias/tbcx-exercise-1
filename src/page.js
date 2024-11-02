@@ -5,16 +5,14 @@ import Content from './components/Content/Content.jsx'
 import Footer from './components/Footer/Footer.jsx'
 
 
-function App() {
+function homePage() {
 
 
   return (
     <>
-    <Header />
-    <Content />
-    <Footer />
+  <Content/>
     </>
   )
 }
 
-export default App
+export default homePage

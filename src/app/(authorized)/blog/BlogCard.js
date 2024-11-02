@@ -1,7 +1,7 @@
 import react from 'react';
 import './BlogCard.css'
-import dislike from '../../assets/dislike.svg'; 
-import like from '../../assets/like.svg'; 
+import dislike from '../../../assets/dislike.svg'; 
+import like from '../../../assets/like.svg'; 
 import Link from 'next/link';
 
 

@@ -1,6 +1,4 @@
 
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import ProductList from './ProductList';
 
 
@@ -34,12 +32,12 @@ export default async function Products({ searchParams }) {
 
   return (
     <>
-      <Header />
+    
       <main>
     
         <ProductList productList={productList} />
       </main>
-      <Footer />
+    
     </>
   );
 }
