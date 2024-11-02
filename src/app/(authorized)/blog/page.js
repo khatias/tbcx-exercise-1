@@ -1,5 +1,8 @@
 
 import BlogList from './blogList';
+import Header from '../../../components/Header/Header';
+import Footer from '../../../components/Footer/Footer';
+import Head from 'next/head';
 
 
 const blogUrl = 'https://dummyjson.com/posts';
@@ -15,10 +18,11 @@ export default async function Blog() {
 
   return (
     <>
-  
+      <Header/>
       <main>
         <BlogList bloglist={bloglist} />
       </main>
+      <Footer/>
  
     </>
   );

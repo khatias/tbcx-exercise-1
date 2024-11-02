@@ -10,7 +10,9 @@ function homePage() {
 
   return (
     <>
+  <Header/>
   <Content/>
+  <Footer/>
     </>
   )
 }

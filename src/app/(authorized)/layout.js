@@ -13,10 +13,10 @@ export default async function ProtectedLayout({ children }) {
   }
 
   return (
-    <div>
-      <Header />
-      {children}
-      <Footer />
-    </div>
+  
+      <>{children}</>
+      
+     
+  
   );
 }
