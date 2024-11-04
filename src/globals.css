@@ -3,7 +3,16 @@
 @tailwind utilities;
 
 /* styles.css or global.css */
-li {
-    @apply text-gray-800 font-medium py-2 px-4 hover:bg-gray-200; /* Example Tailwind classes */
+/* li {
+    @apply text-gray-800 font-medium py-2 px-4 hover:bg-gray-200; 
+  } */
+  /* body {
+    color: #000;
+    background-color: #fff;
   }
   
+  [data-theme="dark"] body {
+    background-color: #000;
+    color: #fff;
+  }
+   */

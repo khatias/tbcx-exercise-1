@@ -10,6 +10,7 @@ function Content() {
     <main>
       <div className='container'>
         <HeroSection />
+        
         <Card/>
       </div>
     </main>

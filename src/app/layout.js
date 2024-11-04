@@ -2,8 +2,10 @@ import { Inter, Roboto_Mono } from 'next/font/google';
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
+// import Providers from './providers';
 import '../globals.css'
-
+import { ThemeProvider } from "next-themes";
+import ThemeSwitcher from './ThemeSwitcher';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,13 +28,19 @@ export default function RootLayout({ children }) {
     return (
    
       <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`}>
+      
+      <body>
         <UserProvider>
-        <body>
-    
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+        >
         {children}
-     
-          </body>
+        </ThemeProvider>
         </UserProvider>
+          </body>
+        
       </html>
    
     )
