@@ -26,10 +26,11 @@ export const metadata = {
   }
 export default function RootLayout({ children }) {
     return (
+      
    
       <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`}>
       
-      <body>
+      <body className='flex flex-col justify-between h-full'>
         <UserProvider>
         <ThemeProvider
           attribute="class"

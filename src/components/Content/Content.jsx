@@ -1,5 +1,4 @@
-import React from 'react'
-import './Content.css'
+
 
 import Card from './Cards/Card'
 import HeroSection from './Hero/HeroSection'
@@ -7,12 +6,12 @@ import HeroSection from './Hero/HeroSection'
 
 function Content() {
   return (
-    <main>
-      <div className='container'>
+    <main className='bg-gray-100 dark:bg-black  pb-10 ' >
+     <div className='container mx-auto 2xl:px-20'>
         <HeroSection />
         
         <Card/>
-      </div>
+        </div>
     </main>
 
   )

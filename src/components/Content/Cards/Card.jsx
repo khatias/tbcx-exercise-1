@@ -1,25 +1,20 @@
-import React from 'react';
 import malayChickenImage from '../../../assets/malay-chicken.jpg'; 
 import fragrantDuck from '../../../assets/fragrant-duck.jpg'; 
 import assamPrawn from '../../../assets/assam-prawn.jpg'; 
-import './Cards.css'
 
 
-function Card({product}) {
+function Card({ product, className }) { 
   return (
-    <div className='card' >
-        <img
-        className='card-image' 
+    <div className={`rounded-lg p-4 bg-white dark:bg-gray-900 ${className}`}> 
+      <img
+        className='pb-6 h-60 w-full' 
         src={product.imageSrc.src} 
-        alt={product.name} 
-       
-       
+        alt={product.title} 
       />
       <div className='card-content'>
-      <h2>{product.title}</h2>
-      <p>{product.description}</p>
-
-      <button>Add to Cart</button>
+        <h2 className="font-semibold text-lg pb-2">{product.title}</h2>
+        <p className='pb-5'>{product.description}</p>
+        <button className=' text-sm px-4 py-2 border border-gray-300 rounded bg-[#b32929] dark:bg-gray-700 dark:text-white' >Add to Cart</button>
       </div>
     </div>
   );
@@ -27,29 +22,31 @@ function Card({product}) {
 
 export default function Cards() {
   return (
-    <div className='container'>
-      
-      <div className='cards-container'>
+    <div className="p-4">
+      <div className='flex flex-col gap-5 md:grid grid-cols-3 xl:gap-24 xl:pt-12'>
         <Card 
+          className="shadow-md dark:shadow-lg" 
           product={{
-            title: 'malay chicken',
-            description: '6 skewers marinated in lemongrass, ginger, shallots and spices. Served with a peanut dipping sauce',
+            title: 'Malay Chicken',
+            description: '6 skewers marinated in lemongrass, ginger, shallots, and spices. Served with a peanut dipping sauce.',
             imageSrc: malayChickenImage 
           }}
         />
 
-  <Card 
+        <Card 
+          className="shadow-md dark:shadow-lg" 
           product={{
-            title: 'Fragrant duck',
+            title: 'Fragrant Duck',
             description: 'Twice cooked fresh duck spiced with Sichuan Peppercorn and 5 spice. Served with steamed buns, Sichuan peppercorn salt.',
             imageSrc: fragrantDuck 
           }}
         />
 
-  <Card 
+        <Card 
+          className="shadow-md dark:shadow-lg" 
           product={{
-            title: 'Assam prawn',
-            description: 'When we say assam we mean irresistibly sour. Prawns are wok-fried in a tamarind sauce with shallots, garlic and turmeric.',
+            title: 'Assam Prawn',
+            description: 'When we say assam we mean irresistibly sour. Prawns are wok-fried in a tamarind sauce with shallots, garlic, and turmeric.',
             imageSrc: assamPrawn 
           }}
         />
@@ -57,5 +54,3 @@ export default function Cards() {
     </div>
   );
 }
-
-  

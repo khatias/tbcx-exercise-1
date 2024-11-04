@@ -3,8 +3,8 @@ import './ContactForm.css'
 
 function ContactForm() {
   return (
-    <main >
-        <div className='container'>
+    <main className='bg-gray-100 dark:bg-black  pb-10 ' >
+        <div className='container mx-auto 2xl:px-20'>
             <div className='contact-form-container'>
                 <form className='contact-form' action="?">
                     <h1>Contact Us</h1>
