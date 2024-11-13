@@ -7,7 +7,7 @@ import { SunIcon } from "../components/icon/SunIcon";
 const themes = [
   { value: "light", label: "light", icon: <SunIcon className="w-5 h-5" /> },
   { value: "dark", label: "dark", icon: <MoonIcon className="w-5 h-5" /> },
-  { value: "system", label: "system", icon: <SunIcon className="w-5 h-5" /> }, // Replace with appropriate icon
+  { value: "system", label: "system", icon: <SunIcon className="w-5 h-5" /> }, 
 ];
 
 const ThemeSwitcher = () => {
@@ -23,14 +23,14 @@ const ThemeSwitcher = () => {
 
   const handleThemeChange = (theme) => {
     setTheme(theme);
-    setDropdownOpen(false); // Close dropdown on selection
+    setDropdownOpen(false); 
   };
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Close dropdown if clicked outside
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -44,7 +44,7 @@ const ThemeSwitcher = () => {
     };
   }, []);
 
-  if (!mounted) return null; // Prevents hydration issues
+  if (!mounted) return null; 
 
   return (
     <div className="relative" ref={dropdownRef}>

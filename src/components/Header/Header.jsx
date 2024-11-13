@@ -67,7 +67,7 @@ function Header() {
                 <a href="/api/auth/login">Login</a>
               </li>
             ) : (
-              <li className="p-2 border border-gray-300 rounded dark:text-white bg-[#b32929] dark:bg-gray-700  ">
+              <li className="p-2 border border-gray-300 rounded text-white bg-[#b32929] dark:bg-gray-700  ">
                 <a href="/api/auth/logout">Logout</a>
               </li>
             )}

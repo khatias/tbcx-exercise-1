@@ -14,7 +14,7 @@ function Card({ product, className }) {
       <div className='card-content'>
         <h2 className="font-semibold text-lg pb-2">{product.title}</h2>
         <p className='pb-5'>{product.description}</p>
-        <button className=' text-sm px-4 py-2 border border-gray-300 rounded bg-[#b32929] dark:bg-gray-700 dark:text-white' >Add to Cart</button>
+        <button className=' text-sm px-4 py-2 border border-gray-300 rounded bg-[#b32929] dark:bg-gray-700 text-white' >Add to Cart</button>
       </div>
     </div>
   );
