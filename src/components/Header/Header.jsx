@@ -7,6 +7,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { useMenuToggle } from "../../hooks/useMenuToggle";
 
+
 function Header() {
   const [isOpen, toggleMenu] = useMenuToggle(false);
   const menuRef = useRef(null);
@@ -75,6 +76,8 @@ function Header() {
             <li>
               <ThemeSwitcher />
             </li>
+
+    
             </span>
           </ul>
         </nav>
