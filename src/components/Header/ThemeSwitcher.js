@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useState, useEffect, useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
-import {useTranslations} from 'next-intl';
+// import {useTranslations} from 'next-intl';
 const themes = [
   { value: "light", label: "Light" },
   { value: "dark", label: "Dark" },
@@ -12,7 +12,7 @@ const themes = [
 
 const ThemeSwitcher = () => {
 
-  const t = useTranslations('mode');
+  // const t = useTranslations('mode');
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
 

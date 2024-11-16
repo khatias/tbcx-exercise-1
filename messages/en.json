@@ -15,7 +15,8 @@
       "blog": "Blog",
        "profile": "Profile",
         "products": "Products"
-    },
+    }
+    ,
     "Mode": {
       "dark": "dark",
       "light": "light",

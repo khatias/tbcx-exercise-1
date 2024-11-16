@@ -92,8 +92,8 @@ import Link from 'next/link';
 //     </div>
 //   );
 // }
-import Search from '../../../components/Search/Search';
-import Sort from '../../../components/Sort/Sort';
+import Search from '../../../../components/Search/Search';
+import Sort from '../../../../components/Sort/Sort';
 
 async function ProductList({ productList }) {
   return (

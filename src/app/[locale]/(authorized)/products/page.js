@@ -1,7 +1,7 @@
 
 import ProductList from './ProductList';
-import Header from '../../../components/Header/Header';
-import Footer from '../../../components/Footer/Footer';
+// import Header from '../../../components/Header/Header';
+// import Footer from '../../../components/Footer/Footer';
 
 
 async function fetchProducts(search, sort) {
@@ -34,12 +34,12 @@ export default async function Products({ searchParams }) {
 
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
       <main>
       
         <ProductList productList={productList} />
       </main>
-      <Footer/>
+      {/* <Footer/> */}
     
     </>
   );

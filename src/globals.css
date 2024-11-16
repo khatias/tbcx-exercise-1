@@ -2,63 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* styles.css or global.css */
-/* li {
-    @apply text-gray-800 font-medium py-2 px-4 hover:bg-gray-200; 
-  } */
-  /* body {
-    color: #000;
-    background-color: #fff;
-  }
-  
-  [data-theme="dark"] body {
-    background-color: #000;
-    color: #fff;
-  }
-
-  
-   */
 
    html{
     height: 100%;
    }
-   .burger-icon {
-    /* display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    margin-right: 16px; */
-    width: 20px;
-    height: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
 
-  }
-  
-  .burger-icon .line {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: black;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .dark .burger-icon .line {
-    background-color: white;
-  }
-  
-  .burger-icon .line.open:nth-child(1) {
-    transform: rotate(50deg) translateY(10px);
-  }
-  
-  .burger-icon .line.open:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .burger-icon .line.open:nth-child(3) {
-    transform: rotate(-50deg) translateY(-10px);
-  }
-  

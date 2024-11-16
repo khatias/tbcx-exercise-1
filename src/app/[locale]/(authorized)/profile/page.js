@@ -1,5 +1,5 @@
-import Header from "../../../components/Header/Header";
-import Footer from "../../../components/Footer/Footer";
+// import Header from "../../../components/Header/Header";
+// import Footer from "../../../components/Footer/Footer";
 import { getSession } from "@auth0/nextjs-auth0";
 
 export default async function ProfileClient() {
@@ -7,7 +7,7 @@ export default async function ProfileClient() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {user && (
         <div>
           <img src={user.picture} alt={user.name} />
@@ -15,7 +15,7 @@ export default async function ProfileClient() {
           <p>{user.email}</p>
         </div>
       )}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
