@@ -7,7 +7,7 @@ import ContactForm from './ContactForm'
 function ContactPage() {
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
     <ContactForm />
     <Footer/>
 

@@ -1,0 +1,28 @@
+.line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  
+  
+ .line.open:nth-child(1) {
+    transform: rotate(50deg) translateY(10px);
+  }
+  
+.line.open:nth-child(2) {
+    opacity: 0;
+  }
+   .line.open:nth-child(3) {
+    transform: rotate(-50deg) translateY(-10px);
+  }
+  
+  .auth-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .auth-icon.rotate {
+    transform: rotate(180deg); 
+  }
+  

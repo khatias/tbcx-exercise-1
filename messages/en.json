@@ -1,7 +1,24 @@
 {
+  "HeaderTop": {
+    "headerTopText": " New Offers This Weekend Only To Get 50%" 
+  },
+
     "HeroSection": {
       "heroTitle": "We’re looking forward to seeing you again.",
       "heroDescription": "Take a culinary tour of China and Southeast Asia. Family style service, like in classic Asian restaurants, creates an enriching experience where guests share a range of tastes together.",
        "menuButtonText": "menu"
+    },
+
+    "Navigation": {
+      "about": "About Us",
+      "contact": "Cotnact",
+      "blog": "Blog",
+       "profile": "Profile",
+        "products": "Products"
+    },
+    "Mode": {
+      "dark": "dark",
+      "light": "light",
+      "system": "system"
     }
   }
