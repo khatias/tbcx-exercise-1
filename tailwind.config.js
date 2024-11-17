@@ -2,11 +2,14 @@
 export default {
   darkMode: 'class',
   content: [
-     "./src/**/*.{js,ts,jsx,tsx,mdx}"
+    "./src/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customPurple: '#7743e6',  
+      },
+    },
   },
   plugins: [],
 }
-

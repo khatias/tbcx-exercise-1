@@ -9,7 +9,7 @@ export default async function ProfileClient() {
     <>
       {/* <Header /> */}
       {user && (
-        <div>
+        <div className="container mx-auto 2xl:px-20">
           <img src={user.picture} alt={user.name} />
           <h2>{user.name}</h2>
           <p>{user.email}</p>

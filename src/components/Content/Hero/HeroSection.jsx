@@ -12,7 +12,7 @@ function HeroSection() {
       {t('heroTitle')}
     </h1>
       <p className='text-sm italic pb-6 xl:text-lg '> {t('heroDescription')}</p>
-      <button className=' text-sm px-4 py-2 border border-gray-300 rounded bg-[#b32929] dark:bg-gray-700 text-white xl:px-8 xl:py-4 ' > {t('menuButtonText')}</button>
+      <button className=' text-sm px-4 py-2 border border-gray-300 rounded bg-[#f7c1fb] dark:bg-gray-700 text-white xl:px-8 xl:py-4 ' > {t('menuButtonText')}</button>
     </div>
  
 </div>
