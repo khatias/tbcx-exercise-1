@@ -1,34 +1,74 @@
-import ProductList from "./ProductList";
-async function fetchProducts(search, sort) {
-  let productsUrl = `https://dummyjson.com/products/search?q=${search || ""}`;
+import { createClient } from "../utils/supabase/server";
 
-  if (sort === "asc") {
-    productsUrl += "&sortBy=price&order=asc";
-  } else if (sort === "desc") {
-    productsUrl += "&sortBy=price&order=desc";
-  }
-
+async function getProducts() {
   try {
-    const response = await fetch(productsUrl);
-    if (!response.ok) {
-      throw new Error("Failed to fetch products");
+    const supabase = await createClient();
+    const { data: products, error } = await supabase
+    .from('products')
+    .select(`
+      id,
+      name,
+      description,
+      price,
+      category_id (name),
+      product_colors (
+        color_id (color_name, hex_code),
+        product_images (image_url, is_primary)
+      )
+    `);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return [];
     }
-    const data = await response.json();
-    return data.products || [];
+
+    console.log("Fetched products with colors and photos:", products);
+    return products;
   } catch (error) {
-    console.error(error);
+    console.error("Unexpected error:", error);
     return [];
   }
 }
+export default async function Products() {
+  const products = await getProducts();
 
-export default async function Products({ searchParams }) {
-  const search = searchParams.search || "";
-  const sort = searchParams.sort || "";
-  const productList = await fetchProducts(search, sort);
+  if (products.length === 0) {
+    
+    return <div>No products found</div>;
+  }
 
   return (
-    <main className="container mx-auto px-4  2xl:px-20 ">
-      <ProductList productList={productList} />
-    </main>
+    <div>
+    <h1>Products</h1>
+    {products.map((product) => (
+      <div key={product.id}>
+        <h2>{product.name}</h2>
+        <p>{product.description}</p>
+        <p>Price: ${product.price}</p>
+        <p>Category: {product.category_id.name}</p>
+        <div>
+          <h3>Colors:</h3>
+          {product.product_colors.map((color) => (
+            <div key={color.color_id.id}>
+              <p>Color: {color.color_id.color_name}</p>
+              <div>
+                {color.product_images.map((image) => (
+                  <img
+                    key={image.id}
+                    src={image.image_url}
+                    alt={color.color_id.color_name}
+                    style={{ width: 100 }}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
   );
+
+
+  
 }
