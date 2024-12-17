@@ -1,53 +1,50 @@
-import { FaStar } from "react-icons/fa";
+import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-function ProductCard({ product }) {
+
+export default function ProductCard({ product }) {
   const locale = useLocale();
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <FaStar key={i} color={i <= product.rating ? "#d218f5" : "gray"} />
-      );
-    }
-    return stars;
-  };
+  const firstImage = product.product_colors?.[0]?.product_images?.find(
+    (img) => img.is_primary
+  )?.image_url;
 
   return (
-    <div className="product-card shadow-lg dark:shadow-xl p-3 bg-white dark:bg-[#1a1a1a] rounded-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
-      <img
-        className="w-full h-52 object-fit rounded-lg"
-        src={product.images[0]}
-        alt={product.title}
-      />
+    <div className=" w-full flex flex-col">
+      {firstImage && (
+        <div className=" w-full">
+          <Image
+            src={firstImage}
+            alt={product.name}
+            layout="responsive"
+            width={500}
+            height={300}
+            className="rounded-md object-contain"
+          />
+        </div>
+      )}
 
-      <h4 className="mt-4 text-lg font-semibold text-gray-800 dark:text-white">
-        {product.title}
-      </h4>
+      <div className=" flex flex-col pl-3">
+        <div className="flex  gap-2 pt-3">
+          {product.product_colors.map((color, index) => (
+            <div key={index} className=" ">
+              {color.color_id.color_image && (
+                <Image
+                  src={color.color_id.color_image}
+                  alt={color.color_id.color_name}
+                  width={24}
+                  height={24}
+                  style={{ borderRadius: "4px" }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
 
-      <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">
-        {product.description.length > 70
-          ? product.description.substring(0, 70) + "..."
-          : product.description}
-      </p>
-
-      <div className="flex items-center gap-1 text-gray-500 dark:text-white mt-2">
-        {renderStars()}
-        <span className="text-sm">{product.rating}</span>
-      </div>
-
-      <div className="flex justify-between items-center mt-4">
-        <p className="text-xl font-semibold text-customPurple dark:text-customPurple">
-          ${product.price}
-        </p>
         <Link href={`/${locale}/products/${product.id}`}>
-          <button className="bg-customPurple text-white py-2 px-4 rounded-full hover:bg-customPurple-dark transition-colors duration-300 dark:bg-customPurple-dark dark:hover:bg-customPurple">
-            View Details
-          </button>
+          <h2 className="text-sm font-semibold pt-3">{product.name}</h2>
         </Link>
+        <p className="text-sm text-gray-500 pt-1">${product.price}</p>
       </div>
     </div>
   );
 }
-
-export default ProductCard;
