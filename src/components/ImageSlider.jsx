@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function ImageSlider({ productColor }) {
+export default function TabletImageSlider({ productColor }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [images, setImages] = useState([]);
 
@@ -27,7 +27,7 @@ export default function ImageSlider({ productColor }) {
   };
 
   return (
-    <div className="relative  mx-auto mt-4 ">
+    <div className="relative  mx-auto mt-4 md:hidden ">
       {images.length > 0 ? (
         <>
           {/* Image display */}

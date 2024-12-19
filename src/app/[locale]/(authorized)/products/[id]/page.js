@@ -46,9 +46,12 @@ export default async function ProductPage({ params }) {
   }
 
   return (
+    <div className=" container mx-auto px-4    2xl:px-20 2xl:pt-10">
+
     <div>
       <ProductDetail product={product} />{" "}
       {/* Pass the fetched product to the client-side component */}
+    </div>
     </div>
   );
 }

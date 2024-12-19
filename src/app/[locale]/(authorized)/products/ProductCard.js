@@ -1,19 +1,34 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
+import { useState } from "react";
 
 export default function ProductCard({ product }) {
   const locale = useLocale();
+
+
   const firstImage = product.product_colors?.[0]?.product_images?.find(
     (img) => img.is_primary
   )?.image_url;
 
+  const secondImage = product.product_colors?.[0]?.product_images?.find(
+    (img) => !img.is_primary
+  )?.image_url;
+
+
+  const [currentImage, setCurrentImage] = useState(firstImage);
+
   return (
-    <div className=" w-full flex flex-col">
-      {firstImage && (
-        <div className=" w-full">
+    <div
+      className="w-full flex flex-col"
+      onMouseEnter={() => secondImage && setCurrentImage(secondImage)} 
+      onMouseLeave={() => setCurrentImage(firstImage)} 
+    >
+      {currentImage && (
+        <div className="w-full">
           <Image
-            src={firstImage}
+            src={currentImage}
             alt={product.name}
             layout="responsive"
             width={500}
@@ -23,17 +38,21 @@ export default function ProductCard({ product }) {
         </div>
       )}
 
-      <div className=" flex flex-col pl-3">
-        <div className="flex  gap-2 pt-3">
+      <div className="flex flex-col pl-3">
+        
+        <div className="flex gap-2 pt-3">
           {product.product_colors.map((color, index) => (
-            <div key={index} className=" ">
+            <div key={index} className="">
+              
               {color.color_id.color_image && (
+                
                 <Image
                   src={color.color_id.color_image}
                   alt={color.color_id.color_name}
                   width={24}
                   height={24}
                   style={{ borderRadius: "4px" }}
+                  
                 />
               )}
             </div>
