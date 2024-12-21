@@ -1,11 +1,10 @@
-
 import LanguageSwitcher from "./LanguageSwitcher";
-import ThemeSwitcher from "./ThemeSwitcher.js";
+import ThemeSwitcher from "./ThemeSwitcher";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import {useTranslations} from 'next-intl';
+import { useTranslations } from "next-intl";
 import "./mobilemenubutton.css";
 function HeaderTop() {
-  const t = useTranslations('HeaderTop');
+  const t = useTranslations("HeaderTop");
   const { user, isLoading } = useUser();
   return (
     <div className=" container mx-auto px-4 flex flex-col items-center border-b-[1px] border-b-[#ebebeb] dark:border-b-[#333333] md:flex-row-reverse md:justify-between 2xl:px-20">
@@ -55,10 +54,7 @@ function HeaderTop() {
         )}
       </ul>
 
-      <span className="text-sm pb-2 text-center">
-       
-        {t('headerTopText')}
-      </span>
+      <span className="text-sm pb-2 text-center">{t("headerTopText")}</span>
     </div>
   );
 }

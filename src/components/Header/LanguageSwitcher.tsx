@@ -7,30 +7,34 @@ import useClickOutside from "../../hooks/useClickOutside";
 const LanguageSwitcher = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const currentLocale = pathname.split("/")[1];
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const dropdownRef = useRef(null);
-  useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
-
+  const currentLocale = pathname.split("/")[1];
   const languages = [
     { code: "en", label: "EN", flag: UsLogo.src },
     { code: "ka", label: "KA", flag: GeoLogo.src },
   ];
 
-  const handleLanguageChange = (newLocale) => {
-    if (newLocale === currentLocale) return;
-    const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
-    router.push(newPath);
+  const currentLanguage = languages.find((lang) => lang.code === currentLocale);
+  
+  useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
+
+  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+
+  const handleLanguageChange = (newLocale: string) => {
+    if (newLocale !== currentLocale) {
+      const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
+      router.push(newPath);
+      setIsDropdownOpen(false);
+    }
   };
 
-  const currentLanguage = languages.find((lang) => lang.code === currentLocale);
-
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
-        className="bg-none border-none cursor-pointer flex items-center"
-        onClick={() => setIsDropdownOpen((prev) => !prev)}
+        className="flex items-center bg-none border-none cursor-pointer"
+        onClick={toggleDropdown}
         aria-expanded={isDropdownOpen}
         aria-haspopup="listbox"
         aria-controls="language-options"
@@ -56,13 +60,12 @@ const LanguageSwitcher = () => {
       {isDropdownOpen && (
         <div
           id="language-options"
-          ref={dropdownRef}
           className="absolute top-full left-0 z-10 bg-white dark:bg-gray-700 mt-2 shadow-lg rounded-md"
         >
           {languages.map(({ code, label, flag }) => (
             <button
               key={code}
-              className={`flex items-center p-2 w-24 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 ${
+              className={`flex items-center p-2 w-24 hover:bg-gray-200 dark:hover:bg-gray-600 ${
                 currentLocale === code ? "font-semibold" : "font-normal"
               }`}
               onClick={() => handleLanguageChange(code)}

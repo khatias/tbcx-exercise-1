@@ -2,8 +2,18 @@ import malayChickenImage from '../../../assets/malay-chicken.jpg';
 import fragrantDuck from '../../../assets/fragrant-duck.jpg'; 
 import assamPrawn from '../../../assets/assam-prawn.jpg'; 
 
+type Product = {
+  title: string;
+  description: string;
+  imageSrc: { src: string };
+};
 
-function Card({ product, className }) { 
+type CardProps = {
+  product: Product;
+  className?: string;
+}
+
+const Card: React.FC<CardProps> = ({ product, className }) => {
   return (
     <div className={`rounded-lg p-4 bg-white dark:bg-gray-900 ${className}`}> 
       <img
