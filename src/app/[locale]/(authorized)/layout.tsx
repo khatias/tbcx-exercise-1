@@ -8,6 +8,5 @@ interface ProtectedLayoutProps {
 }
 
 export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
-  // This layout assumes middleware has handled session validation
   return <>{children}</>;
 }

@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { useLocale } from "next-intl";
 import PasswordInput from "@/src/components/Inputs/PasswordInput";
+import { supabase } from "../supabase/supabase";
 
 export default function Login() {
-  const locale = useLocale();
+  const locale = useLocale(); // Get current locale (either "en" or "ka")
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -14,7 +15,7 @@ export default function Login() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    const response = await fetch(`/${locale}/auth/login`, {
+    const response = await fetch(`/${locale}/api/auth/login`, {
       method: "POST",
       body: new URLSearchParams({
         email,
@@ -26,39 +27,44 @@ export default function Login() {
       const result = await response.json();
       setErrorMessage(result.error);
     } else {
-      window.location.href = `/${locale}`;
+      window.location.href = `/${locale}`; 
+    }
+  };
+
+  const handleGithubLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: `${window.location.origin}/${locale}/api/auth/callback`, 
+      },
+    });
+
+    if (error) {
+      setErrorMessage(error.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[70%] bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">
-          Log In
-        </h2>
+    <div className="flex items-center justify-center h-full bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl m-4 rounded-xl p-6 space-y-6">
+        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">Log In</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col space-y-3">
-            <label
-              htmlFor="email"
-              className="font-medium text-gray-800 dark:text-gray-300"
-            >
+            <label htmlFor="email" className="font-medium text-gray-800 dark:text-gray-300">
               Email Address
             </label>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
-              className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
               required
             />
           </div>
 
           <div className="flex flex-col space-y-3">
-            <label
-              htmlFor="password"
-              className=" font-medium text-gray-800 dark:text-gray-300"
-            >
+            <label htmlFor="password" className="font-medium text-gray-800 dark:text-gray-300">
               Password
             </label>
             <PasswordInput />
@@ -66,14 +72,13 @@ export default function Login() {
 
           <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
             Don’t have an account?{" "}
-            <a
-              href="./signup"
-              className="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none"
-            >
+            <a href="./signup" className="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none">
               Sign Up
             </a>
           </div>
-
+          <button onClick={handleGithubLogin} className="w-full py-2 px-4 bg-gray-800 text-white rounded-md mt-4">
+            Sign in with GitHub
+          </button>
           <button
             className="w-full py-3 bg-customPurple text-white font-semibold text-lg rounded-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800"
             type="submit"

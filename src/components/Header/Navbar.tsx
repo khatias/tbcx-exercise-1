@@ -13,7 +13,7 @@ function Navbar() {
     setIsDrawerOpen(!isDrawerOpen);
   };
   return (
-    <div className="container mx-auto p-4  flex  w-full 2xl:px-20 ">
+    <div className="container mx-auto p-2  flex  w-full 2xl:px-20 ">
       <div className="hidden md:flex w-full justify-between items-center gap-5">
         <LogoLink />
         <DesktopNavLinks />

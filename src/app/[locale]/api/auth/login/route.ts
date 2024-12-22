@@ -25,25 +25,16 @@ export async function POST(req: NextRequest) {
     password,
   });
 
-
   const locale = cookies().get("locale")?.value || "en";
 
   if (error) {
-   
     console.error("Login error:", error.message);
-
-    
-    return NextResponse.json(
-      { error: error.message }, 
-      { status: 400 } 
-    );
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 
-  // If login is successful, redirect to the root path based on the locale
+ 
   return redirect({
-    href: "/", 
-    locale, 
+    href: `/`, 
+    locale,
   });
 }
-
-

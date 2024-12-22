@@ -1,12 +1,28 @@
 import Link from "next/link";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl"; 
+import { useLocale } from "next-intl";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Session } from "@supabase/supabase-js"; // Import the Session type
+
+// Initialize the Supabase client
+const supabase = createClientComponentClient();
 
 function DesktopNavLinks() {
-  // const { user, isLoading } = useUser();
   const t = useTranslations("Navigation");
-  const locale = useLocale(); 
+  const locale = useLocale();
+
+  // Use Session type for proper type-checking
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    async function fetchSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      setSession(session); // Set the session if available
+    }
+
+    fetchSession();
+  }, []);
 
   return (
     <ul className="flex w-full gap-8 justify-end">
@@ -22,11 +38,13 @@ function DesktopNavLinks() {
       <li>
         <Link href={`/${locale}/products`}>{t("products")}</Link>
       </li>
-      {/* {!isLoading && user && (
+
+      {/* Conditionally render profile link if session exists */}
+      {session && (
         <li>
           <Link href={`/${locale}/profile`}>{t("profile")}</Link>
         </li>
-      )} */}
+      )}
     </ul>
   );
 }

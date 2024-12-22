@@ -1,13 +1,12 @@
-
 // // }
 
 // import React from "react";
 
-// import { useLocale } from "next-intl"; 
+// import { useLocale } from "next-intl";
 
 // export default function signup() {
 
-//   const locale = useLocale(); 
+//   const locale = useLocale();
 
 //   return (
 //     <form action={`/${locale}/auth/signup`} method="post">
@@ -38,7 +37,7 @@ export default function signup() {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    const response = await fetch(`/${locale}/auth/signup`, {
+    const response = await fetch(`/${locale}/api/auth/signup`, {
       method: "POST",
       body: new URLSearchParams({
         email,
@@ -87,22 +86,12 @@ export default function signup() {
             </label>
             <PasswordInput />
           </div>
-{/* 
-          <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-            Don’t have an account?{" "}
-            <a
-              href="./signup"
-              className="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none"
-            >
-              Sign Up
-            </a>
-          </div> */}
 
           <button
             className="w-full py-3 bg-customPurple text-white font-semibold text-lg rounded-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800"
             type="submit"
           >
-           Sign Up
+            Sign Up
           </button>
 
           {errorMessage && (
