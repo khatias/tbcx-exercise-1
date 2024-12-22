@@ -9,7 +9,7 @@ interface MobileDrawerProps {
 }
 
 const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) => {
-  const { user, isLoading } = useUser();
+  // const { user, isLoading } = useUser();
   const t = useTranslations("Navigation");
   const locale = useLocale();
 
@@ -31,11 +31,11 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) => {
         <li>
           <Link href={`/${locale}/products`}>{t("products")}</Link>
         </li>
-        {!isLoading && user && (
+        {/* {!isLoading && user && (
           <li>
             <Link href={`/${locale}/profile`}>{t("profile")}</Link>
           </li>
-        )}
+        )} */}
       </ul>
     </div>
   );

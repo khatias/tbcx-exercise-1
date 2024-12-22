@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import "./mobilemenubutton.css";
 function HeaderTop() {
   const t = useTranslations("HeaderTop");
-  const { user, isLoading } = useUser();
+  // const { user, isLoading } = useUser();
   return (
     <div className=" container mx-auto px-4 flex flex-col items-center border-b-[1px] border-b-[#ebebeb] dark:border-b-[#333333] md:flex-row-reverse md:justify-between 2xl:px-20">
       <ul className="flex items-center justify-center gap-8 pt-2  pb-2">
@@ -15,7 +15,7 @@ function HeaderTop() {
         <li>
           <ThemeSwitcher />
         </li>
-        {!isLoading && !user ? (
+        {/* {!isLoading && !user ? (
           <li>
             <a className="flex items-center" href="/api/auth/login">
               <svg
@@ -51,7 +51,7 @@ function HeaderTop() {
               <span className="text-sm px-[4px]  font-medium"> Log out</span>
             </a>
           </li>
-        )}
+        )} */}
       </ul>
 
       <span className="text-sm pb-2 text-center">{t("headerTopText")}</span>

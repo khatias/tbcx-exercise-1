@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl"; 
 
 function DesktopNavLinks() {
-  const { user, isLoading } = useUser();
+  // const { user, isLoading } = useUser();
   const t = useTranslations("Navigation");
   const locale = useLocale(); 
 
@@ -22,11 +22,11 @@ function DesktopNavLinks() {
       <li>
         <Link href={`/${locale}/products`}>{t("products")}</Link>
       </li>
-      {!isLoading && user && (
+      {/* {!isLoading && user && (
         <li>
           <Link href={`/${locale}/profile`}>{t("profile")}</Link>
         </li>
-      )}
+      )} */}
     </ul>
   );
 }

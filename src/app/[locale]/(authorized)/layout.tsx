@@ -1,18 +1,13 @@
-import { getSession } from "@auth0/nextjs-auth0";
-import { redirect } from "next/navigation";
+"use client";
+
+import React from "react";
+import { useRouter } from "next/navigation";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function ProtectedLayout({
-  children,
-}: ProtectedLayoutProps) {
-  const session = await getSession();
-
-  if (!session) {
-    redirect("/api/auth/login");
-  }
-
+export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
+  // This layout assumes middleware has handled session validation
   return <>{children}</>;
 }

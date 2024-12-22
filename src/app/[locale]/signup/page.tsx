@@ -1,0 +1,117 @@
+
+// // }
+
+// import React from "react";
+
+// import { useLocale } from "next-intl"; 
+
+// export default function signup() {
+
+//   const locale = useLocale(); 
+
+//   return (
+//     <form action={`/${locale}/auth/signup`} method="post">
+//       <div>
+//         <label htmlFor="email">email</label>
+//         <input type="email" name="email" />
+//         <label htmlFor="password">password</label>
+//         <input type="password" name="password" />
+//         <button>signup</button>
+//       </div>
+//     </form>
+//   );
+// }
+
+"use client";
+import React, { useState } from "react";
+import { useLocale } from "next-intl";
+import PasswordInput from "@/src/components/Inputs/PasswordInput";
+
+export default function signup() {
+  const locale = useLocale();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    const response = await fetch(`/${locale}/auth/signup`, {
+      method: "POST",
+      body: new URLSearchParams({
+        email,
+        password,
+      }),
+    });
+
+    if (!response.ok) {
+      const result = await response.json();
+      setErrorMessage(result.error);
+    } else {
+      window.location.href = `/${locale}`;
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-[70%] bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 space-y-6">
+        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">
+          Sign up
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex flex-col space-y-3">
+            <label
+              htmlFor="email"
+              className="font-medium text-gray-800 dark:text-gray-300"
+            >
+              Email Address
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              className="w-full p-4 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col space-y-3">
+            <label
+              htmlFor="password"
+              className=" font-medium text-gray-800 dark:text-gray-300"
+            >
+              Password
+            </label>
+            <PasswordInput />
+          </div>
+{/* 
+          <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+            Don’t have an account?{" "}
+            <a
+              href="./signup"
+              className="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none"
+            >
+              Sign Up
+            </a>
+          </div> */}
+
+          <button
+            className="w-full py-3 bg-customPurple text-white font-semibold text-lg rounded-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800"
+            type="submit"
+          >
+           Sign Up
+          </button>
+
+          {errorMessage && (
+            <div className="text-center text-red-500 mt-4">
+              <strong>{errorMessage}</strong>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+}
