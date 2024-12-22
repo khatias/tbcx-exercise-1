@@ -5,7 +5,7 @@ import PasswordInput from "@/src/components/Inputs/PasswordInput";
 import { supabase } from "../supabase/supabase";
 
 export default function Login() {
-  const locale = useLocale(); // Get current locale (either "en" or "ka")
+  const locale = useLocale(); 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {

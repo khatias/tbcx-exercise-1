@@ -40,7 +40,7 @@ const {error }= await supabase.auth.signUp({
     );
   }
 
-  // If login is successful, redirect to the root path based on the locale
+  
   return redirect({
     href: "/", 
     locale, 
