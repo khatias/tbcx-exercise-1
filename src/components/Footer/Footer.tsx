@@ -7,7 +7,7 @@ function Footer() {
   const locale = useLocale();
 
   return (
-    <footer className=" py-6 ">
+    <footer className=" py-6  bottom-0 top-0 ">
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-center space-y-6 sm:space-y-0">
           <div className="text-center sm:text-left">

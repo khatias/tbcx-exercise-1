@@ -1,9 +1,9 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { routing } from '../../i18n/routing';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "../../i18n/routing";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import "../../globals.css";
 
 interface LocaleLayoutProps {
@@ -23,17 +23,14 @@ export default async function LocaleLayout({
     notFound();
   }
 
-
-
-  
-  const messages = await getMessages({ locale});
+  const messages = await getMessages({ locale });
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-    <Header />
-    {/* <Header locale={locale} /> */}
-    {children}
-    <Footer />
-  </NextIntlClientProvider>
+      <Header />
+      {/* <Header locale={locale} /> */}
+      {children}
+      <Footer />
+    </NextIntlClientProvider>
   );
 }

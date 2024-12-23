@@ -1,7 +1,7 @@
 
 function AboutContent() {
   return (
-    <main className='bg-gray-100 dark:bg-black h-full '>
+    <main className='bg-gray-100 dark:bg-black flex-grow'> 
             <div className='container mx-auto 2xl:px-20 pt-12'>
       <p className='font-bold text-center md:text-2xl'> 
           I am creating a restaurant website inspired by an existing example found online, specifically <a  href="https://www.wildginger.net/" target='blink'>Wild Ginger</a>.

@@ -1,6 +1,6 @@
 function ContactForm() {
     return (
-      <main className="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen">
+      <main className="bg-gray-100 dark:bg-gray-900 flex items-center justify-center flex-grow">
   
 
         <div className="container bg-white  dark:bg-gray-800 rounded-2xl shadow-sm  w-full max-w-3xl p-6  sm:p-8">
