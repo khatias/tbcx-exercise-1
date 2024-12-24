@@ -45,7 +45,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-full bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
+    <div className="flex flex-grow items-center justify-center h-full bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl m-4 rounded-xl p-6 space-y-6">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">Log In</h2>
 

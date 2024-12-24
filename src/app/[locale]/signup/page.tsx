@@ -1,25 +1,4 @@
-// // }
 
-// import React from "react";
-
-// import { useLocale } from "next-intl";
-
-// export default function signup() {
-
-//   const locale = useLocale();
-
-//   return (
-//     <form action={`/${locale}/auth/signup`} method="post">
-//       <div>
-//         <label htmlFor="email">email</label>
-//         <input type="email" name="email" />
-//         <label htmlFor="password">password</label>
-//         <input type="password" name="password" />
-//         <button>signup</button>
-//       </div>
-//     </form>
-//   );
-// }
 
 "use client";
 import React, { useState } from "react";
@@ -54,7 +33,7 @@ export default function signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[70%] bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
+    <div className="flex flex-grow items-center justify-center min-h-[70%] bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 space-y-6">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">
           Sign up
