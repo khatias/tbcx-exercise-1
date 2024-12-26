@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Product } from "../../types/products";
 import { createCheckoutSession } from "../../app/actions/stripe-payment";
+import BuyNow from "../products/buy-now";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -92,7 +93,7 @@ export default function Slider() {
       </h2>
       {products.length > 0 && (
         <div className="relative">
-          <div className="overflow-hidden" ref={sliderRef}>
+          <div className="overflow-x-hidden" ref={sliderRef}>
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
@@ -121,12 +122,7 @@ export default function Slider() {
                         <span className="text-md font-bold text-gray-800 dark:text-gray-200">
                           ${(product.price / 100).toFixed(2)}
                         </span>
-                        <button
-                          className="bg-blue-950 text-white py-2 px-4 rounded-full hover:bg-blue-800 transition duration-200 dark:bg-gray-600 dark:hover:bg-gray-500"
-                          onClick={() => handleBuyNow(product.stripe_price_id)}
-                        >
-                          Buy Now
-                        </button>
+                        <BuyNow stripe_price_id={product.stripe_price_id} />
                       </div>
                     </div>
                   </div>
