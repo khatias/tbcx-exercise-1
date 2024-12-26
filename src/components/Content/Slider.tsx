@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Product } from "../../types/products";
+import { createCheckoutSession } from "../../app/actions/stripe-payment";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -59,6 +60,23 @@ export default function Slider() {
     }
   };
 
+  const handleBuyNow = async (stripe_price_id: string) => {
+    try {
+      const formData = new FormData();
+      formData.append("uiMode", "hosted");
+      formData.append("priceId", stripe_price_id);
+      formData.append("locale", "en");
+
+      const { url } = await createCheckoutSession(formData);
+
+      if (url) {
+        window.location.assign(url);
+      }
+    } catch (error) {
+      console.error("Error creating checkout session:", error);
+    }
+  };
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -103,8 +121,11 @@ export default function Slider() {
                         <span className="text-md font-bold text-gray-800 dark:text-gray-200">
                           ${(product.price / 100).toFixed(2)}
                         </span>
-                        <button className="bg-blue-950 text-white py-2 px-4 rounded-full hover:bg-blue-800 transition duration-200 dark:bg-gray-600 dark:hover:bg-gray-500">
-                          Add to Cart
+                        <button
+                          className="bg-blue-950 text-white py-2 px-4 rounded-full hover:bg-blue-800 transition duration-200 dark:bg-gray-600 dark:hover:bg-gray-500"
+                          onClick={() => handleBuyNow(product.stripe_price_id)}
+                        >
+                          Buy Now
                         </button>
                       </div>
                     </div>
@@ -113,7 +134,6 @@ export default function Slider() {
               ))}
             </div>
           </div>
-          {/* lg:left-[100%] */}
           <button
             onClick={prevSlide}
             disabled={currentIndex === 0}
