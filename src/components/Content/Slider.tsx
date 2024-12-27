@@ -4,20 +4,20 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Product } from "../../types/products";
 import { createCheckoutSession } from "../../app/actions/stripe-payment";
 import BuyNow from "../products/buy-now";
-
+ 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
-
+ 
 export default function Slider() {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
+ 
   const sliderRef = useRef<HTMLDivElement>(null);
   const cardWidth = useRef<number>(0);
-
+ 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -25,51 +25,51 @@ export default function Slider() {
           .from("products")
           .select("*")
           .range(0, 10);
-
+ 
         if (error) {
           throw error;
         }
-
+ 
         setProducts(data || []);
       } catch (err: any) {
         setError("Error fetching products: " + err.message);
       }
     };
-
+ 
     fetchProducts();
   }, []);
-
+ 
   useEffect(() => {
     if (sliderRef.current && products.length > 0) {
       cardWidth.current = sliderRef.current.children[0].clientWidth;
     }
   }, [products]);
-
+ 
   const nextSlide = () => {
     if (products.length === 0) return;
-
+ 
     if (currentIndex < products.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
-
+ 
   const prevSlide = () => {
     if (products.length === 0) return;
-
+ 
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
     }
   };
-
+ 
   const handleBuyNow = async (stripe_price_id: string) => {
     try {
       const formData = new FormData();
       formData.append("uiMode", "hosted");
       formData.append("priceId", stripe_price_id);
       formData.append("locale", "en");
-
+ 
       const { url } = await createCheckoutSession(formData);
-
+ 
       if (url) {
         window.location.assign(url);
       }
@@ -77,15 +77,15 @@ export default function Slider() {
       console.error("Error creating checkout session:", error);
     }
   };
-
+ 
   if (error) {
     return <div>{error}</div>;
   }
-
+ 
   if (products.length === 0) {
     return <div className="text-center text-lg">No products available</div>;
   }
-
+ 
   return (
     <div className="container mx-auto py-8 2xl:px-20">
       <h2 className="text-3xl font-semibold text-center mb-6">
@@ -122,7 +122,7 @@ export default function Slider() {
                         <span className="text-md font-bold text-gray-800 dark:text-gray-200">
                           ${(product.price / 100).toFixed(2)}
                         </span>
-                        <BuyNow stripe_price_id={product.stripe_price_id} />
+                        <BuyNow stripe_price_id={product.stripe_price_id} name={product.name} price={product.price} image={product.image} />
                       </div>
                     </div>
                   </div>

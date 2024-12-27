@@ -3,6 +3,7 @@
 import type { Stripe } from "stripe";
 import { headers } from "next/headers";
 import { stripe } from "../../lib/stripe/stripe";
+import { createClient } from "@/src/utils/supabase/server";
 
 export async function createCheckoutSession(
   data: FormData
@@ -10,17 +11,22 @@ export async function createCheckoutSession(
   const ui_mode = data.get(
     "uiMode"
   ) as Stripe.Checkout.SessionCreateParams.UiMode;
-
+  const name = data.get("name") as string;
+  const price = Number(data.get("price") as string);
+  const image = data.get("image") as string;
   const origin: string = (await headers()).get("origin") as string;
-
   const locale = data.get("locale") || "en";
-
   const priceId = data.get("priceId") as string;
 
   if (!priceId) {
     throw new Error("Price ID is required.");
   }
 
+  const supabase = await createClient();
+  const userResponse = await supabase.auth.getUser();
+  const user_id = userResponse.data?.user?.id;
+
+  // Create Stripe checkout session
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create({
       mode: "payment",
@@ -39,6 +45,30 @@ export async function createCheckoutSession(
       }),
       ui_mode,
     });
+
+  try {
+    const { data: order, error: orderError } = await supabase
+      .from("orders")
+      .insert({
+        stripe_price_id: priceId,
+        user_id: user_id,
+        name: name,
+        price: price,
+        image: image,
+      })
+      .select("id")
+      .single();
+
+    if (orderError) {
+      console.error("Error inserting order:", orderError);
+      throw new Error(`Failed to insert order: ${orderError.message}`);
+    }
+
+    console.log("Order inserted successfully:", order);
+  } catch (error) {
+    console.error("Error inserting order into database:", error);
+    throw new Error(`Failed to insert order: ${error}`);
+  }
 
   return {
     client_secret: checkoutSession.client_secret,
