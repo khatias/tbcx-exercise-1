@@ -7,3 +7,13 @@ export interface Product {
   image: string;
   stripe_price_id: string;
 }
+
+export interface Order {
+  id: string;
+  name: string;
+  price: number;
+  status: string;
+  created_at: string;
+  payment_id: string;
+  stripe_price_id: string;
+}

@@ -1,24 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { createCheckoutSession } from "../../app/actions/stripe-payment";
-interface buy{
-  stripe_price_id:string;
-  name:string;
-  price:string;
-  image:string;
+
+interface BuyNowProps {
+  stripe_price_id: string;
+  product_id: number;
 }
-const BuyNow  = ({ stripe_price_id ,name, price, image }:buy) => {
-  const handleBuyNow = async ({stripe_price_id , name, price, image}:buy) => {
+
+const BuyNow = ({ stripe_price_id, product_id }: BuyNowProps) => {
+  const handleBuyNow = async () => {
     try {
       const formData = new FormData();
       formData.append("uiMode", "hosted");
       formData.append("priceId", stripe_price_id);
+      formData.append("product_id", String(product_id));
       formData.append("locale", "en");
-      formData.append("name", name);
-      formData.append ("price", price);
-      formData.append("image", image);
- 
+
       const { url } = await createCheckoutSession(formData);
- 
+
       if (url) {
         window.location.assign(url);
       }
@@ -26,17 +24,12 @@ const BuyNow  = ({ stripe_price_id ,name, price, image }:buy) => {
       console.error("Error creating checkout session:", error);
     }
   };
- 
+
   return (
     <div>
-      <button
-        className="bg-blue-950 text-white py-2 px-4 rounded-full hover:bg-blue-800 transition duration-200 dark:bg-gray-600 dark:hover:bg-gray-500"
-        onClick={() => handleBuyNow({stripe_price_id, name, price, image})}
-      >
-        Buy Now
-      </button>
+      <button className="text-center w-full" onClick={handleBuyNow}>Buy Now</button>
     </div>
   );
 };
- 
+
 export default BuyNow;

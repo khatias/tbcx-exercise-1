@@ -1,7 +1,5 @@
-// 'use client'
-
 import { createClient } from "../../../../utils/supabase/server";
-import ProductCard from "../../../../components/ProductCard/ProductCard"; // Component for each product
+import ProductCard from "../../../../components/ProductCard/ProductCard";
 
 export default async function Products() {
   const supabase = await createClient();
@@ -12,8 +10,8 @@ export default async function Products() {
   }
 
   return (
-    <div className="container m-auto">
-      <div className="products-container flex flex-wrap justify-center gap-4">
+    <div className="container mx-auto py-8 2xl:px-20 pt-10">
+      <div className="products-container grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {data?.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
