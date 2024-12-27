@@ -2,30 +2,43 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Session } from "@supabase/supabase-js"; // Import the Session type
-
-// Initialize the Supabase client
-const supabase = createClientComponentClient();
+import { UserIcon, ShoppingCartIcon, PlusIcon } from "@heroicons/react/outline";
 
 function DesktopNavLinks() {
   const t = useTranslations("Navigation");
   const locale = useLocale();
 
-  // Use Session type for proper type-checking
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchSession() {
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session); // Set the session if available
-    }
+    const checkAuthStatus = async () => {
+      const response = await fetch(`/${locale}/api/auth/status`);
+      const data = await response.json();
 
-    fetchSession();
-  }, []);
+      if (data.authenticated) {
+        setSession(true);
+      } else {
+        setSession(false);
+      }
+      setLoading(false);
+    };
+
+    checkAuthStatus();
+  }, [locale]);
+
+  if (loading) {
+    return (
+      <ul className="flex w-full gap-8 justify-end items-center">
+        <li className="flex justify-center items-center">
+          <div className="animate-spin border-4 border-t-4 border-purple-800 border-solid w-6 h-6 rounded-full"></div>
+        </li>
+      </ul>
+    );
+  }
 
   return (
-    <ul className="flex w-full gap-8 justify-end">
+    <ul className="flex w-full gap-8 justify-end items-center">
       <li>
         <Link href={`/${locale}/contact`}>{t("contact")}</Link>
       </li>
@@ -38,11 +51,23 @@ function DesktopNavLinks() {
       <li>
         <Link href={`/${locale}/products`}>{t("products")}</Link>
       </li>
-
-      {/* Conditionally render profile link if session exists */}
       {session && (
         <li>
-          <Link href={`/${locale}/profile`}>{t("profile")}</Link>
+          <Link href={`/${locale}/profile`} aria-label="Profile">
+            <UserIcon className="h-6 w-6 text-gray-800 dark:text-white" />
+          </Link>
+        </li>
+      )}
+      <li>
+        <Link href={`/${locale}/cart`} aria-label="Cart">
+          <ShoppingCartIcon className="h-6 w-6 text-purple-800" />
+        </Link>
+      </li>
+      {session && (
+        <li>
+          <Link href={`/${locale}/create-product`} aria-label="Add Product">
+            <PlusIcon className="h-6 w-6 text-gray-800 dark:text-white" />
+          </Link>
         </li>
       )}
     </ul>

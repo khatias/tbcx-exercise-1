@@ -5,7 +5,7 @@ import PasswordInput from "@/src/components/Inputs/PasswordInput";
 import { supabase } from "../supabase/supabase";
 
 export default function Login() {
-  const locale = useLocale(); 
+  const locale = useLocale();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,7 +27,7 @@ export default function Login() {
       const result = await response.json();
       setErrorMessage(result.error);
     } else {
-      window.location.href = `/${locale}`; 
+      window.location.href = `/${locale}`;
     }
   };
 
@@ -35,7 +35,7 @@ export default function Login() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `${window.location.origin}/${locale}/api/auth/callback`, 
+        redirectTo: `${window.location.origin}/${locale}/api/auth/callback`,
       },
     });
 
@@ -45,13 +45,18 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center h-full bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl m-4 rounded-xl p-6 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">Log In</h2>
+    <div className="flex flex-grow items-center justify-center h-full bg-gray-100 dark:bg-black ">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-sm m-4 rounded-xl p-6 space-y-6">
+        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">
+          Log In
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col space-y-3">
-            <label htmlFor="email" className="font-medium text-gray-800 dark:text-gray-300">
+            <label
+              htmlFor="email"
+              className="font-medium text-gray-800 dark:text-gray-300"
+            >
               Email Address
             </label>
             <input
@@ -64,7 +69,10 @@ export default function Login() {
           </div>
 
           <div className="flex flex-col space-y-3">
-            <label htmlFor="password" className="font-medium text-gray-800 dark:text-gray-300">
+            <label
+              htmlFor="password"
+              className="font-medium text-gray-800 dark:text-gray-300"
+            >
               Password
             </label>
             <PasswordInput />
@@ -72,11 +80,17 @@ export default function Login() {
 
           <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
             Don’t have an account?{" "}
-            <a href="./signup" className="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none">
+            <a
+              href="./signup"
+              className="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none"
+            >
               Sign Up
             </a>
           </div>
-          <button onClick={handleGithubLogin} className="w-full py-2 px-4 bg-gray-800 text-white rounded-md mt-4">
+          <button
+            onClick={handleGithubLogin}
+            className="w-full py-2 px-4 bg-gray-800 text-white rounded-md mt-4"
+          >
             Sign in with GitHub
           </button>
           <button
