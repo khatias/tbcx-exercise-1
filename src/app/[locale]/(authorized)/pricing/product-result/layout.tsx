@@ -9,10 +9,6 @@ export default function ResultLayout({
 }: {
   children: React.ReactNode;
 }): JSX.Element {
-  return (
-    <div className="page-container">
-      <h1>Payment Intent Result</h1>
-      {children}
-    </div>
-  );
+  return <div className="flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 flex-grow">
+{children}</div>;
 }
