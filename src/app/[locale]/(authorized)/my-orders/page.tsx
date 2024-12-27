@@ -5,7 +5,16 @@ import { FaShoppingCart, FaCheckCircle } from "react-icons/fa";
 export default async function MyOrdersPage() {
   const supabase = await createClient();
 
-  const { data: orders, error } = await supabase.from("orders").select("*");
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return <div>Please log in to view your orders.</div>;
+  }
+
+
+  const { data: orders, error } = await supabase
+    .from("orders")
+    .select("*")
+    .eq("user_id", user.id); 
 
   if (error) {
     console.error("Error fetching orders:", error);
@@ -14,7 +23,7 @@ export default async function MyOrdersPage() {
 
   return (
     <div className="flex items-center justify-center flex-grow bg-gray-100 dark:bg-gray-900 pt-10">
-      <div className="container mx-auto 2xl:px-20 w-full px-6 py-8  dark:bg-gray-800  border-gray-200 dark:border-gray-700 rounded-md">
+      <div className="container mx-auto 2xl:px-20 w-full px-6 py-8 dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-md">
         <div className="space-y-4">
           {orders?.map((order) => (
             <div
