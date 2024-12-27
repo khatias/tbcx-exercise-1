@@ -61,22 +61,7 @@ export default function Slider() {
     }
   };
  
-  const handleBuyNow = async (stripe_price_id: string) => {
-    try {
-      const formData = new FormData();
-      formData.append("uiMode", "hosted");
-      formData.append("priceId", stripe_price_id);
-      formData.append("locale", "en");
  
-      const { url } = await createCheckoutSession(formData);
- 
-      if (url) {
-        window.location.assign(url);
-      }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-    }
-  };
  
   if (error) {
     return <div>{error}</div>;
@@ -122,7 +107,9 @@ export default function Slider() {
                         <span className="text-md font-bold text-gray-800 dark:text-gray-200">
                           ${(product.price / 100).toFixed(2)}
                         </span>
-                        <BuyNow stripe_price_id={product.stripe_price_id} name={product.name} price={product.price} image={product.image} />
+                        <div className="bg-[#2c1a5c] text-white px-8 py-3 rounded-md dark:bg-[#3e1e76] dark:text-white">
+                        <BuyNow stripe_price_id={product.stripe_price_id} product_id={product.id} />
+                        </div>
                       </div>
                     </div>
                   </div>

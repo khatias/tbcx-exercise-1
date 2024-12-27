@@ -11,22 +11,23 @@ export async function createCheckoutSession(
   const ui_mode = data.get(
     "uiMode"
   ) as Stripe.Checkout.SessionCreateParams.UiMode;
-  const name = data.get("name") as string;
-  const price = Number(data.get("price") as string);
-  const image = data.get("image") as string;
+  const priceId = data.get("priceId") as string;
+  const product_id = data.get("product_id") as string;
   const origin: string = (await headers()).get("origin") as string;
   const locale = data.get("locale") || "en";
-  const priceId = data.get("priceId") as string;
 
-  if (!priceId) {
-    throw new Error("Price ID is required.");
+  if (!priceId || !product_id) {
+    throw new Error("Price ID and Product ID are required.");
   }
 
   const supabase = await createClient();
-  const userResponse = await supabase.auth.getUser();
-  const user_id = userResponse.data?.user?.id;
+  const { data: authData, error: authError } = await supabase.auth.getUser();
+  const user_id = authData?.user?.id;
 
-  // Create Stripe checkout session
+  if (authError || !user_id) {
+    throw new Error("User authentication failed.");
+  }
+
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.create({
       mode: "payment",
@@ -37,6 +38,10 @@ export async function createCheckoutSession(
           quantity: 1,
         },
       ],
+      metadata: {
+        product_id,
+        user_id,
+      },
       ...(ui_mode === "hosted" && {
         success_url: `${origin}/${locale}/pricing/product-result?session_id={CHECKOUT_SESSION_ID}`,
       }),
@@ -45,30 +50,6 @@ export async function createCheckoutSession(
       }),
       ui_mode,
     });
-
-  try {
-    const { data: order, error: orderError } = await supabase
-      .from("orders")
-      .insert({
-        stripe_price_id: priceId,
-        user_id: user_id,
-        name: name,
-        price: price,
-        image: image,
-      })
-      .select("id")
-      .single();
-
-    if (orderError) {
-      console.error("Error inserting order:", orderError);
-      throw new Error(`Failed to insert order: ${orderError.message}`);
-    }
-
-    console.log("Order inserted successfully:", order);
-  } catch (error) {
-    console.error("Error inserting order into database:", error);
-    throw new Error(`Failed to insert order: ${error}`);
-  }
 
   return {
     client_secret: checkoutSession.client_secret,

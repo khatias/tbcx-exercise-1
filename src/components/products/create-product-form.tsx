@@ -1,204 +1,175 @@
-import Stripe from "stripe";
-import { createClient } from "../../utils/supabase/server";
+"use client";
+import { useState } from "react";
+import { createProduct } from "../../utils/productService";
+import { AiOutlineClose, AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 export function CreateProductForm() {
-  async function createProduct(formData: FormData) {
-    "use server";
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-    const supabase = await createClient();
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
 
-    // Get user id from Supabase
-    const userResponse = await supabase.auth.getUser();
-    const user_id = userResponse.data?.user?.id;
+    const formData = new FormData(event.target as HTMLFormElement);
+    const response = await createProduct(formData);
 
-    // Get form data
-    const name = formData.get("name") as string;
-    const price = Number(formData.get("price"));
-    const image = formData.get("image") as string;
-    const brand = formData.get("brand") as string;
-    const category = formData.get("category") as string;
-    const description = formData.get("description") as string;
+    setModalMessage(response.message);
+    setModalVisible(true);
 
-    // Check necessary data
-    if (
-      !name ||
-      !price ||
-      !image ||
-      !user_id ||
-      !brand ||
-      !category ||
-      !description
-    ) {
-      console.log("Missing required fields");
-      return;
-    }
-
-    try {
-      const Stripeproduct = await stripe.products.create({
-        name,
-        description,
-        images: [image],
-        metadata: {
-          brand,
-          category,
-        },
-      });
-
-      // Create price for the product in Stripe
-      const stripePrice = await stripe.prices.create({
-        product: Stripeproduct.id,
-        unit_amount: price,
-        currency: "usd",
-      });
-
-      // Insert product data into Supabase
-      const { data, error } = await supabase
-        .from("products")
-        .insert({
-          name,
-          price,
-          image,
-          user_id,
-          brand,
-          category,
-          description,
-          stripe_product_id: Stripeproduct.id,
-          stripe_price_id: stripePrice.id,
-        })
-        .single();
-
-      if (error) {
-        console.error("Error inserting into Supabase:", error);
-        return;
-      }
-
-      console.log("Product inserted into Supabase:", data);
-    } catch (error) {
-      console.error("Error creating product:", error);
+    if (response.success) {
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 3000);
     }
   }
 
   return (
-    <div className="w-full max-w-5xl m-auto p-6">
-  <h2 className="text-2xl text-center font-semibold text-gray-800 dark:text-gray-100 mb-6">
-    Create Product
-  </h2>
-  <form
-    action={createProduct}
-    className="grid grid-cols-1 md:grid-cols-2 gap-6"
-  >
-    <div className="flex flex-col space-y-2">
-      <label
-        htmlFor="name"
-        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-      >
-        Name
-      </label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-customPurple dark:focus:ring-customPurple transition duration-300"
-        placeholder="Enter the product name"
-        required
-      />
+    <div className="w-full max-w-3xl mx-auto p-6 bg-zinc-100 rounded-md">
+      {/* Modal */}
+      {modalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg w-full sm:w-96 md:w-1/2 lg:w-1/3 relative">
+            <button
+              onClick={() => setModalVisible(false)}
+              className="absolute top-2 right-2 text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white text-2xl"
+            >
+              <AiOutlineClose />
+            </button>
+            <p className="text-lg font-semibold text-gray-800 dark:text-gray-100 text-center mb-4">
+              {modalMessage}
+            </p>
+            {modalMessage.includes("successfully") ? (
+              <div className="text-center text-green-500">
+                <AiOutlineCheckCircle className="inline-block text-3xl mb-2" />
+                Product created successfully!
+              </div>
+            ) : (
+              <div className="text-center text-red-500">
+                <AiOutlineCloseCircle className="inline-block text-3xl mb-2" />
+                Failed to create product. Please try again.
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <h2 className="text-2xl text-center font-semibold text-gray-800 dark:text-gray-100 mb-6">
+        Create Product
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Form fields */}
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="name"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition duration-300"
+            placeholder="Enter the product name"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="price"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            Price
+          </label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition duration-300"
+            placeholder="Enter the product price"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="brand"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            Brand
+          </label>
+          <input
+            type="text"
+            id="brand"
+            name="brand"
+            className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition duration-300"
+            placeholder="Enter the product brand"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="category"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            Category
+          </label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition duration-300"
+            placeholder="Enter the product category"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="image"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            Image URL
+          </label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition duration-300"
+            placeholder="Enter image URL"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="description"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
+            Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition duration-300"
+            placeholder="Enter product description"
+            required
+          ></textarea>
+        </div>
+
+        {/* Submit Button */}
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="px-16 py-3 bg-purple-800 text-white rounded-md hover:bg-purple-700 focus:outline-none transition duration-300"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
-
-    <div className="flex flex-col space-y-2">
-      <label
-        htmlFor="price"
-        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-      >
-        Price
-      </label>
-      <input
-        type="number"
-        id="price"
-        name="price"
-        className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-customPurple dark:focus:ring-customPurple transition duration-300"
-        placeholder="Enter the product price"
-        required
-      />
-    </div>
-
-    <div className="flex flex-col space-y-2">
-      <label
-        htmlFor="brand"
-        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-      >
-        Brand
-      </label>
-      <input
-        type="text"
-        id="brand"
-        name="brand"
-        className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-customPurple dark:focus:ring-customPurple transition duration-300"
-        placeholder="Enter the product brand"
-        required
-      />
-    </div>
-
-    <div className="flex flex-col space-y-2">
-      <label
-        htmlFor="category"
-        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-      >
-        Category
-      </label>
-      <input
-        type="text"
-        id="category"
-        name="category"
-        className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-customPurple dark:focus:ring-customPurple transition duration-300"
-        placeholder="Enter the product category"
-        required
-      />
-    </div>
-
-    <div className="flex flex-col space-y-2 md:col-span-2">
-      <label
-        htmlFor="image"
-        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-      >
-        Image URL
-      </label>
-      <input
-        type="text"
-        id="image"
-        name="image"
-        className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-customPurple dark:focus:ring-customPurple transition duration-300"
-        placeholder="Enter image URL"
-        required
-      />
-    </div>
-
-
-
-    <div className="flex flex-col space-y-2 md:col-span-2">
-      <label
-        htmlFor="description"
-        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-      >
-        Description
-      </label>
-      <textarea
-        id="description"
-        name="description"
-        className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-customPurple dark:focus:ring-customPurple transition duration-300"
-        placeholder="Enter product description"
-        required
-      ></textarea>
-    </div>
-
-    <button
-      type="submit"
-      className="w-full py-3 bg-customPurple text-white font-medium text-lg rounded hover:bg-purple-700 transition duration-300 focus:outline-none dark:bg-purple-700 dark:hover:bg-purple-800 md:col-span-2"
-    >
-      Submit
-    </button>
-  </form>
-</div>
-
-  )}
-   
+  );
+}

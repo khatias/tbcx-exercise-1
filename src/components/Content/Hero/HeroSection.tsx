@@ -9,10 +9,10 @@ function HeroSection() {
   };
 
   return (
-    <div className="h-[400px] lg:h-[750px]">
+    <div className="h-[400px] lg:h-[750px] container mx-auto 2xl:px-20 pt-10">
       <div
         style={backgroundImageStyle}
-        className=" bg-left lg:bg-center  h-full  flex flex-col md:flex-row items-center justify-between md:pt-16   bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900"
+        className=" bg-left lg:bg-center container mx-auto  h-full  flex flex-col md:flex-row items-center justify-between md:pt-16   bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900"
       >
         <div className="max-w-screen-xl mx-auto p-4 flex flex-col md:flex-row items-center justify-between md:gap-12 xl:min-w-[1280px]">
           <div className="hero-content text-center md:text-left flex flex-col justify-center space-y-6">

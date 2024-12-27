@@ -33,8 +33,8 @@ export default function signup() {
   };
 
   return (
-    <div className="flex flex-grow items-center justify-center min-h-[70%] bg-gradient-to-br from-blue-100 to-purple-300 dark:from-blue-800 dark:to-purple-900">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 space-y-6">
+    <div className="flex flex-grow items-center justify-center min-h-[70%] bg-gray-100 dark:bg-black">
+      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-sm rounded-xl p-6 space-y-6">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-6">
           Sign up
         </h2>

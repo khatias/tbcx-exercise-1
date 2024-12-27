@@ -2,15 +2,15 @@ import type { Stripe } from "stripe";
 import { stripe } from "../../../../../lib/stripe/stripe";
 import { createClient } from "@/src/utils/supabase/server";
 import { Link } from "@/src/i18n/routing";
-import PrintObject from "../../../../../components/pricing/stripe/PrintObject";
 
 export default async function ProductResultPage({
   searchParams,
 }: {
   searchParams: { session_id: string };
 }): Promise<JSX.Element> {
-  if (!searchParams.session_id)
+  if (!searchParams.session_id) {
     throw new Error("Please provide a valid session_id (`cs_test_...`)");
+  }
 
   const checkoutSession: Stripe.Checkout.Session =
     await stripe.checkout.sessions.retrieve(searchParams.session_id, {
@@ -19,16 +19,43 @@ export default async function ProductResultPage({
 
   const paymentIntent =
     checkoutSession.payment_intent as Stripe.PaymentIntent | null;
+  const metadata = checkoutSession.metadata;
+  if (!metadata) {
+    throw new Error("Metadata is missing in the checkout session.");
+  }
+  const productId = metadata.product_id;
+  const userId = metadata.user_id;
 
-  if (paymentIntent) {
+  if (paymentIntent && paymentIntent.status === "succeeded") {
     const supabase = await createClient();
 
-    await supabase
-      .from("orders")
-      .update({ payment_id: paymentIntent.id })
-      .eq("stripe_price_id", checkoutSession.line_items?.data[0]?.price?.id);
+    const { data: product, error: productError } = await supabase
+      .from("products")
+      .select("name, image, price")
+      .eq("id", productId)
+      .single();
 
-    console.log("PaymentIntent added to order.");
+    if (productError || !product) {
+      console.error("Failed to fetch product details:", productError);
+    }
+
+    const { error: orderError } = await supabase.from("orders").insert({
+      stripe_price_id: checkoutSession.line_items?.data[0]?.price?.id,
+      user_id: userId,
+      name: product?.name,
+      price: product?.price,
+      image: product?.image,
+      product_id: productId,
+      payment_id: paymentIntent.id,
+    });
+
+    if (orderError) {
+      console.error("Failed to insert order into database:", orderError);
+    } else {
+      console.log("Order successfully inserted into database.");
+    }
+  } else {
+    console.error("Payment was not successful.");
   }
 
   return (
@@ -38,7 +65,6 @@ export default async function ProductResultPage({
           <h1 className="text-3xl font-semibold text-black dark:text-white">
             Order Confirmed
           </h1>
-        
         </div>
 
         <div className="text-left mb-6">
