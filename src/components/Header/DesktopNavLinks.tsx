@@ -49,7 +49,7 @@ function DesktopNavLinks() {
         <Link href={`/${locale}/blog`}>{t("blog")}</Link>
       </li>
       <li>
-        <Link href={`/${locale}/products`}>{t("products")}</Link>
+        <Link data-cy="products-link" href={`/${locale}/products`}>{t("products")}</Link>
       </li>
       {session && (
         <li>
@@ -65,7 +65,7 @@ function DesktopNavLinks() {
       </li>
       {session && (
         <li>
-          <Link href={`/${locale}/create-product`} aria-label="Add Product">
+          <Link data-cy="create-products-link" href={`/${locale}/create-product`} aria-label="Add Product">
             <PlusIcon className="h-6 w-6 text-gray-800 dark:text-white" />
           </Link>
         </li>

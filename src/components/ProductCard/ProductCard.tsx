@@ -48,6 +48,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <button
+        
           onClick={handleViewProduct}
           className="flex-1 py-2 bg-black text-white rounded-full border-2 border-transparent hover:bg-white hover:text-black hover:border-black dark:hover:bg-gray-600 dark:hover:text-white dark:hover:border-gray-600 transition duration-200"
         >

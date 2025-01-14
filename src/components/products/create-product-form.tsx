@@ -39,12 +39,12 @@ export function CreateProductForm() {
               {modalMessage}
             </p>
             {modalMessage.includes("successfully") ? (
-              <div className="text-center text-green-500">
+              <div data-cy='success-message'  className="text-center text-green-500 ">
                 <AiOutlineCheckCircle className="inline-block text-3xl mb-2" />
                 Product created successfully!
               </div>
             ) : (
-              <div className="text-center text-red-500">
+              <div data-cy="error-message" className="text-center text-red-500">
                 <AiOutlineCloseCircle className="inline-block text-3xl mb-2" />
                 Failed to create product. Please try again.
               </div>
@@ -67,6 +67,7 @@ export function CreateProductForm() {
             Name
           </label>
           <input
+          data-cy="product-name"
             type="text"
             id="name"
             name="name"
@@ -84,6 +85,7 @@ export function CreateProductForm() {
             Price
           </label>
           <input
+             data-cy="product-price"
             type="number"
             id="price"
             name="price"
@@ -101,6 +103,7 @@ export function CreateProductForm() {
             Brand
           </label>
           <input
+             data-cy="product-brand"
             type="text"
             id="brand"
             name="brand"
@@ -118,6 +121,7 @@ export function CreateProductForm() {
             Category
           </label>
           <input
+              data-cy="product-category"
             type="text"
             id="category"
             name="category"
@@ -135,6 +139,7 @@ export function CreateProductForm() {
             Image URL
           </label>
           <input
+            data-cy="product-image"
             type="text"
             id="image"
             name="image"
@@ -152,6 +157,7 @@ export function CreateProductForm() {
             Description
           </label>
           <textarea
+               data-cy="product-description"
             id="description"
             name="description"
             className="w-full p-3 rounded border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition duration-300"
@@ -163,6 +169,7 @@ export function CreateProductForm() {
         {/* Submit Button */}
         <div className="flex justify-center">
           <button
+               data-cy="product-create-button"
             type="submit"
             className="px-16 py-3 bg-purple-800 text-white rounded-md hover:bg-purple-700 focus:outline-none transition duration-300"
           >
