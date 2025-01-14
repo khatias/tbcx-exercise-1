@@ -28,7 +28,7 @@ export default function signup() {
       const result = await response.json();
       setErrorMessage(result.error);
     } else {
-      window.location.href = `/${locale}`;
+      window.location.href = `/${locale}/login`;
     }
   };
 
@@ -48,6 +48,7 @@ export default function signup() {
               Email Address
             </label>
             <input
+               data-cy="signup-email-input"
               type="email"
               name="email"
               placeholder="Enter your email"
@@ -63,18 +64,23 @@ export default function signup() {
             >
               Password
             </label>
-            <PasswordInput />
+            <PasswordInput 
+              name="password" 
+              placeholder="Enter your password" 
+              dataCy="signup-password-input" />
           </div>
 
           <button
+          data-cy="signup-submit-button"
             className="w-full py-3 bg-customPurple text-white font-semibold text-lg rounded-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800"
             type="submit"
+    
           >
             Sign Up
           </button>
 
           {errorMessage && (
-            <div className="text-center text-red-500 mt-4">
+            <div data-cy="signup-error-message" className="text-center text-red-500 mt-4">
               <strong>{errorMessage}</strong>
             </div>
           )}

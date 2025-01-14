@@ -1,4 +1,14 @@
 describe("auth", () => {
+    it("Signs up successfully", () => {
+    cy.visit("/");
+    cy.get('[data-cy="login-in"]').click();
+    cy.get('[data-cy="sign-up-link"]').click();
+    cy.get('[data-cy="signup-email-input"]').type("davit.mchedlishvili.2396@gmail.com");
+    cy.get('[data-cy="signup-password-input"]').type("davitdavit1");
+    cy.get('[data-cy="signup-submit-button"]').click();
+    cy.url().should("include", "/login");
+  });
+
   it("Logs in successfully", () => {
     cy.visit("/");
 
@@ -23,7 +33,7 @@ describe("auth", () => {
       .and("not.be.empty");
   });
 
-  it("logs user out", ()=>{
+  it("logs user out", () => {
     cy.visit("/");
     cy.get('[data-cy="login-in"]').click();
     cy.get('[data-cy="login-email-input"]').type("l.kuchukhidze@gmail.com");
@@ -33,5 +43,30 @@ describe("auth", () => {
     cy.url().should("include", "/products");
     cy.get('[data-cy="log-out"]').click();
     cy.url().should("include", "/login");
-  })
+  });
+
+  it("Signs up successfully", () => {
+    cy.visit("/");
+    cy.get('[data-cy="login-in"]').click();
+    cy.get('[data-cy="sign-up-link"]').click();
+    cy.get('[data-cy="signup-email-input"]').type("davit.mchedlishvili.2396@gmail.com");
+    cy.get('[data-cy="signup-password-input"]').type("davitdavit1");
+    cy.get('[data-cy="signup-submit-button"]').click();
+    cy.url().should("include", "/login");
+  });
+
+  it("Fails up successfully", () => {
+    cy.visit("/");
+    cy.get('[data-cy="login-in"]').click();
+    cy.get('[data-cy="sign-up-link"]').click();
+    cy.get('[data-cy="signup-email-input"]').type("test@gmail.com");
+    cy.get('[data-cy="signup-password-input"]').type("1111111");
+    cy.get('[data-cy="signup-submit-button"]').click();
+
+       cy.get('[data-cy="signup-error-message"]')
+      .should("be.visible")
+      .and("not.be.empty");
+
+ 
+  });
 });

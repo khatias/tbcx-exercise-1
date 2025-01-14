@@ -60,7 +60,7 @@ export default function Login() {
               Email Address
             </label>
             <input
-          data-cy="login-email-input"
+              data-cy="login-email-input"
               type="email"
               name="email"
               placeholder="Enter your email"
@@ -76,12 +76,17 @@ export default function Login() {
             >
               Password
             </label>
-            <PasswordInput />
+            <PasswordInput
+              name="password"
+              placeholder="Enter your password"
+              dataCy="login-password-input"
+            />
           </div>
 
           <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
             Don’t have an account?{" "}
             <a
+              data-cy="sign-up-link"
               href="./signup"
               className="text-blue-600 dark:text-blue-400 font-medium hover:underline focus:outline-none"
             >
@@ -89,13 +94,14 @@ export default function Login() {
             </a>
           </div>
           <button
-              data-cy="login-submit-button"
+       
             onClick={handleGithubLogin}
             className="w-full py-2 px-4 bg-gray-800 text-white rounded-md mt-4"
           >
             Sign in with GitHub
           </button>
           <button
+            data-cy="login-submit-button"
             className="w-full py-3 bg-customPurple text-white font-semibold text-lg rounded-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none dark:bg-blue-700 dark:hover:bg-blue-800"
             type="submit"
           >
@@ -103,7 +109,10 @@ export default function Login() {
           </button>
 
           {errorMessage && (
-            <div data-cy='login-error-message' className="text-center text-red-500 mt-4">
+            <div
+              data-cy="login-error-message"
+              className="text-center text-red-500 mt-4"
+            >
               <strong>{errorMessage}</strong>
             </div>
           )}
