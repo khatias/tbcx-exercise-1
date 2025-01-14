@@ -27,7 +27,7 @@ export default function Login() {
       const result = await response.json();
       setErrorMessage(result.error);
     } else {
-      window.location.href = `/${locale}`;
+      window.location.href = `/${locale}/products`;
     }
   };
 
@@ -60,6 +60,7 @@ export default function Login() {
               Email Address
             </label>
             <input
+          data-cy="login-email-input"
               type="email"
               name="email"
               placeholder="Enter your email"
@@ -88,6 +89,7 @@ export default function Login() {
             </a>
           </div>
           <button
+              data-cy="login-submit-button"
             onClick={handleGithubLogin}
             className="w-full py-2 px-4 bg-gray-800 text-white rounded-md mt-4"
           >
@@ -101,7 +103,7 @@ export default function Login() {
           </button>
 
           {errorMessage && (
-            <div className="text-center text-red-500 mt-4">
+            <div data-cy='login-error-message' className="text-center text-red-500 mt-4">
               <strong>{errorMessage}</strong>
             </div>
           )}

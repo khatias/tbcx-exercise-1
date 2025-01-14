@@ -58,7 +58,7 @@ export default function HeaderTop() {
           <li>Loading...</li> // Optionally handle the loading state
         ) : !session ? (
           <li>
-            <a className="flex items-center" href={`/${locale}/login`}>
+            <a className="flex items-center"  data-cy='login-in'  href={`/${locale}/login`}>
               <LoginIcon className="auth-icon" width={18} height={18} />
               <span className="text-sm px-[4px] font-medium"> Log in</span>
             </a>
@@ -68,6 +68,7 @@ export default function HeaderTop() {
             <a className="flex items-center">
               <LogoutIcon className="auth-icon rotate" width={18} height={18} />
               <button
+                data-cy='log-out'
                 onClick={handleLogout}
                 className="text-sm px-[4px] font-medium"
               >

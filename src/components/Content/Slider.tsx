@@ -4,20 +4,20 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Product } from "../../types/products";
 import { createCheckoutSession } from "../../app/actions/stripe-payment";
 import BuyNow from "../products/buy-now";
- 
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
- 
+
 export default function Slider() {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
- 
+
   const sliderRef = useRef<HTMLDivElement>(null);
   const cardWidth = useRef<number>(0);
- 
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -25,57 +25,52 @@ export default function Slider() {
           .from("products")
           .select("*")
           .range(0, 10);
- 
+
         if (error) {
           throw error;
         }
- 
+
         setProducts(data || []);
       } catch (err: any) {
         setError("Error fetching products: " + err.message);
       }
     };
- 
+
     fetchProducts();
   }, []);
- 
+
   useEffect(() => {
     if (sliderRef.current && products.length > 0) {
       cardWidth.current = sliderRef.current.children[0].clientWidth;
     }
   }, [products]);
- 
+
   const nextSlide = () => {
     if (products.length === 0) return;
- 
+
     if (currentIndex < products.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
- 
+
   const prevSlide = () => {
     if (products.length === 0) return;
- 
+
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
     }
   };
- 
- 
- 
+
   if (error) {
     return <div>{error}</div>;
   }
- 
+
   if (products.length === 0) {
     return <div className="text-center text-lg">No products available</div>;
   }
- 
+
   return (
-    <div className="container mx-auto py-8 2xl:px-20">
-      <h2 className="text-3xl font-semibold text-center mb-6">
-        Product Slider
-      </h2>
+    <div className="container mx-auto py-8 2xl:px-20 pt-20">
       {products.length > 0 && (
         <div className="relative">
           <div className="overflow-x-hidden" ref={sliderRef}>
@@ -108,7 +103,10 @@ export default function Slider() {
                           ${(product.price / 100).toFixed(2)}
                         </span>
                         <div className="bg-[#2c1a5c] text-white px-8 py-3 rounded-md dark:bg-[#3e1e76] dark:text-white">
-                        <BuyNow stripe_price_id={product.stripe_price_id} product_id={product.id} />
+                          <BuyNow
+                            stripe_price_id={product.stripe_price_id}
+                            product_id={product.id}
+                          />
                         </div>
                       </div>
                     </div>
