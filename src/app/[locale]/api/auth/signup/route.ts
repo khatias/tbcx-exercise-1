@@ -4,13 +4,6 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export const routing = defineRouting({
-  locales: ["en", "ka"],
-  defaultLocale: "en",
-});
-
-export const { Link, redirect, usePathname, useRouter } = createNavigation(routing);
-
 export async function POST(req: NextRequest) {
   const cookieStore = cookies();
   const formData = await req.formData();
@@ -20,29 +13,20 @@ export async function POST(req: NextRequest) {
     cookies: () => cookieStore,
   });
 
-const {error }= await supabase.auth.signUp({
-  email,
-  password,
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
-});
-
-
-  const locale = cookies().get("locale")?.value || "en";
+  const locale = cookieStore.get("locale")?.value || "en";
 
   if (error) {
-   
     console.error("Login error:", error.message);
 
-    
-    return NextResponse.json(
-      { error: error.message }, 
-      { status: 400 } 
-    );
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
-
-  
-  return redirect({
-    href: "/", 
-    locale, 
+  return NextResponse.json({
+    message: "signup successful",
+    redirectTo: `/${locale}/`,
   });
 }

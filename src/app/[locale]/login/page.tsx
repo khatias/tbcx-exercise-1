@@ -25,7 +25,8 @@ export default function Login() {
 
     if (!response.ok) {
       const result = await response.json();
-      setErrorMessage(result.error);
+      throw new Error(result.error || "An unknown error occurred.");
+    
     } else {
       window.location.href = `/${locale}/products`;
     }
