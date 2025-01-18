@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react"; 
 import { usePathname, useRouter } from "next/navigation";
 import UsLogo from "../../assets/united-states.png";
 import GeoLogo from "../../assets/georgia.png";
 import useClickOutside from "../../hooks/useClickOutside";
+import Image from "next/image"; 
 
 const LanguageSwitcher = () => {
   const pathname = usePathname();
@@ -17,7 +18,7 @@ const LanguageSwitcher = () => {
   ];
 
   const currentLanguage = languages.find((lang) => lang.code === currentLocale);
-  
+
   useClickOutside(dropdownRef, () => setIsDropdownOpen(false));
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
@@ -39,8 +40,8 @@ const LanguageSwitcher = () => {
         aria-haspopup="listbox"
         aria-controls="language-options"
       >
-        <img
-          src={currentLanguage?.flag}
+        <Image
+          src={currentLanguage?.flag || ""}
           alt={`${currentLanguage?.label} Flag`}
           width={20}
           height={14}
@@ -70,7 +71,7 @@ const LanguageSwitcher = () => {
               }`}
               onClick={() => handleLanguageChange(code)}
             >
-              <img
+              <Image
                 className="mr-2"
                 src={flag}
                 alt={`${label} Flag`}

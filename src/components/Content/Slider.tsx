@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Product } from "../../types/products";
-import { createCheckoutSession } from "../../app/actions/stripe-payment";
+import Image from "next/image"; // Correct import for next/image
+
 import BuyNow from "../products/buy-now";
 
 const supabase = createClient(
@@ -31,8 +32,8 @@ export default function Slider() {
         }
 
         setProducts(data || []);
-      } catch (err: any) {
-        setError("Error fetching products: " + err.message);
+      } catch (err: unknown) {
+        setError("Error fetching products: " + (err as Error).message);
       }
     };
 
@@ -89,11 +90,18 @@ export default function Slider() {
                   className="w-full md:w-1/3 lg:w-1/4 flex-shrink-0 p-4"
                 >
                   <div className="border rounded-lg hover:transition-shadow duration-300 dark:bg-gray-800 dark:border-gray-700">
-                    <img
-                      src={product.image}
+                    <Image
+                      src={
+                        product.image.startsWith("http")
+                          ? product.image
+                          : `/${product.image}`
+                      } 
                       alt={product.name}
+                      width={400}
+                      height={300}
                       className="rounded-t-lg bg-gray-100 w-full h-48 object-contain dark:bg-gray-700"
                     />
+
                     <div className="p-4 flex flex-col justify-between min-h-[160px]">
                       <h3 className="font-semibold text-gray-800 dark:text-white">
                         {product.name}

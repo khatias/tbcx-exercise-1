@@ -1,3 +1,4 @@
+import React from "react";
 import type { Stripe } from "stripe";
 
 export default function PrintObject({

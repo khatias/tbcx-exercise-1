@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useState } from "react";
 import { createProduct } from "../../utils/productService";
 import { AiOutlineClose, AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
