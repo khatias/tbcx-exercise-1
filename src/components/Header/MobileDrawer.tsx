@@ -1,7 +1,7 @@
+import React from "react";
 import Link from "next/link";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import {useTranslations} from 'next-intl';
-import { useLocale } from "next-intl"; 
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -31,15 +31,9 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose }) => {
         <li>
           <Link href={`/${locale}/products`}>{t("products")}</Link>
         </li>
-        {/* {!isLoading && user && (
-          <li>
-            <Link href={`/${locale}/profile`}>{t("profile")}</Link>
-          </li>
-        )} */}
       </ul>
     </div>
   );
 };
 
 export default MobileDrawer;
-

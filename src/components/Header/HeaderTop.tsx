@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { LoginIcon, LogoutIcon } from "@heroicons/react/outline"; 
@@ -25,7 +25,7 @@ export default function HeaderTop() {
     };
 
     checkAuthStatus();
-  }, []);
+  }, [locale]);
 
   const handleLogout = async () => {
     const response = await fetch(`/${locale}/api/auth/logout`, {

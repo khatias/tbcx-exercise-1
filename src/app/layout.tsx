@@ -1,6 +1,6 @@
+import React from "react";
 import { ThemeProvider } from "next-themes";
 import "../globals.css";
-import React from "react";
 
 export const metadata = {
   title: "TBCx assignment",

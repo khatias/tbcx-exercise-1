@@ -1,6 +1,8 @@
+import React from "react";
 import bgimage from "../../../assets/fileAsset.jpg";
 import { useTranslations } from "next-intl";
 import { Link } from "@/src/i18n/routing";
+
 function HeroSection() {
   const t = useTranslations("HeroSection");
 
@@ -23,8 +25,7 @@ function HeroSection() {
               {t("heroDescription")}
             </p>
             <button className="bg-[#2c1a5c] dark:bg-[#1a0e3d] text-white text-base px-5 py-3 rounded-lg shadow-md hover:bg-[#6a3e9f] dark:hover:bg-[#4d1b63] transition-colors duration-300">
-             <Link href="/pricing">{t("menuButtonText")}</Link>
-          
+              <Link href="/pricing">{t("menuButtonText")}</Link>
             </button>
           </div>
           <div className=" w-full md:mt-0 2xl:"></div>

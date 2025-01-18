@@ -1,14 +1,21 @@
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import navLogo from "../../assets/logo.png";
 import { useLocale } from "next-intl";
 
 function LogoLink() {
-  const locale = useLocale(); 
+  const locale = useLocale();
   return (
     <div className="">
-      {/* Corrected href with dynamic locale */}
-      <Link href={`/${locale}/`}>
-        <img className="w-20 md:w-36" src={navLogo.src} alt="cafe logo" />
+      <Link href={`/${locale}`}>
+        <Image
+          className="w-20 md:w-36"
+          src={navLogo.src}
+          alt=" logo"
+          width={144}
+          height={36}
+        />
       </Link>
     </div>
   );
