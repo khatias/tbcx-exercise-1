@@ -1,9 +1,11 @@
 "use client";
+
 import React, { useState } from "react";
+import Image from "next/image";
 import DeleteProduct from "./Buttons/DeleteProductButton";
 
 const MyProductCard = ({ products }) => {
-  const [productsList, setProductsList] = useState(products);
+  const [productsList] = useState(products);
 
   return (
     <div className="container mx-auto py-12 px-6 xl:px-16">
@@ -12,14 +14,20 @@ const MyProductCard = ({ products }) => {
           <div
             key={product.id}
             data-cy="my-product-card"
-            className="  p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 transition-shadow duration-300"
+            className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 transition-shadow duration-300"
           >
             <div className="w-full h-56 mb-4 overflow-hidden rounded-md bg-gray-100 dark:bg-gray-700">
               {product.image ? (
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                <Image
+                  src={
+                    product.image.startsWith("http")
+                      ? product.image
+                      : "/placeholder.jpg"
+                  }
+                  alt={product.name || "Product image"}
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-500">
@@ -35,7 +43,7 @@ const MyProductCard = ({ products }) => {
                 {product.description || "No description available"}
               </p>
             </div>
-            <div className="mt-4 flex">
+            <div className="mt-4 flex justify-center">
               <DeleteProduct id={product.id} />
             </div>
           </div>

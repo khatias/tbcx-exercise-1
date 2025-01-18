@@ -1,3 +1,4 @@
+import React from "react";
 import BlogPostPage from "../BlogPostPage";
 
 interface Post {

@@ -1,20 +1,22 @@
+import React from "react";
 import { createClient } from "@/src/utils/supabase/server";
 import { Link } from "@/src/i18n/routing";
 import { FaShoppingCart, FaCheckCircle } from "react-icons/fa";
-
+import Image from "next/image";
 export default async function MyOrdersPage() {
   const supabase = await createClient();
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) {
     return <div>Please log in to view your orders.</div>;
   }
 
-
   const { data: orders, error } = await supabase
     .from("orders")
     .select("*")
-    .eq("user_id", user.id); 
+    .eq("user_id", user.id);
 
   if (error) {
     console.error("Error fetching orders:", error);
@@ -32,10 +34,16 @@ export default async function MyOrdersPage() {
             >
               <div className="flex items-center space-x-4">
                 {order.image && (
-                  <img
-                    src={order.image}
-                    alt={order.name}
-                    className="w-16 h-16 object-cover rounded-md"
+                  <Image
+                    src={
+                      order.image?.startsWith("http")
+                        ? order.image
+                        : "/placeholder.jpg"
+                    }
+                    alt={order.name || "Default alt text"}
+                    width={64}
+                    height={64}
+                    className="object-cover rounded-md"
                   />
                 )}
                 <div>

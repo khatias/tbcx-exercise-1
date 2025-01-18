@@ -1,3 +1,4 @@
+import React from "react";
 import BlogList from "./BlogList";
 
 const blogUrl = "https://dummyjson.com/posts";
