@@ -1,10 +1,10 @@
 describe("auth", () => {
-    it("Signs up successfully", () => {
+  it("Signs up successfully", () => {
     cy.visit("/");
     cy.get('[data-cy="login-in"]').click();
     cy.get('[data-cy="sign-up-link"]').click();
-    cy.get('[data-cy="signup-email-input"]').type("davit.mchedlishvili.2396@gmail.com");
-    cy.get('[data-cy="signup-password-input"]').type("davitdavit1");
+    cy.get('[data-cy="signup-email-input"]').type("sikharulidze30mariam@gmail.com");
+    cy.get('[data-cy="signup-password-input"]').type("mariammariam1");
     cy.get('[data-cy="signup-submit-button"]').click();
     cy.url().should("include", "/login");
   });
@@ -20,7 +20,7 @@ describe("auth", () => {
     cy.url().should("include", "/products");
   });
 
-  it("Fails to log in", () => {
+  it("Fails to log in with incorrect credentials", () => {
     cy.visit("/");
 
     cy.get("a").contains("Log in").click();
@@ -33,7 +33,7 @@ describe("auth", () => {
       .and("not.be.empty");
   });
 
-  it("logs user out", () => {
+  it("Logs user out", () => {
     cy.visit("/");
     cy.get('[data-cy="login-in"]').click();
     cy.get('[data-cy="login-email-input"]').type("l.kuchukhidze@gmail.com");
@@ -45,17 +45,7 @@ describe("auth", () => {
     cy.url().should("include", "/login");
   });
 
-  it("Signs up successfully", () => {
-    cy.visit("/");
-    cy.get('[data-cy="login-in"]').click();
-    cy.get('[data-cy="sign-up-link"]').click();
-    cy.get('[data-cy="signup-email-input"]').type("davit.mchedlishvili.2396@gmail.com");
-    cy.get('[data-cy="signup-password-input"]').type("davitdavit1");
-    cy.get('[data-cy="signup-submit-button"]').click();
-    cy.url().should("include", "/login");
-  });
-
-  it("Fails up successfully", () => {
+  it("Fails to sign up with invalid data", () => {
     cy.visit("/");
     cy.get('[data-cy="login-in"]').click();
     cy.get('[data-cy="sign-up-link"]').click();
@@ -63,10 +53,8 @@ describe("auth", () => {
     cy.get('[data-cy="signup-password-input"]').type("1111111");
     cy.get('[data-cy="signup-submit-button"]').click();
 
-       cy.get('[data-cy="signup-error-message"]')
+    cy.get('[data-cy="signup-error-message"]')
       .should("be.visible")
       .and("not.be.empty");
-
- 
   });
 });

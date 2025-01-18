@@ -25,8 +25,10 @@ const MyProductCard = ({ products }) => {
                       : "/placeholder.jpg"
                   }
                   alt={product.name || "Product image"}
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  fill
+                  width={300}
+                  height={300}
+                  className="object-cover w-full group-hover:scale-105 transition-transform duration-300"
+                
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                 />
               ) : (

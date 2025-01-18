@@ -14,7 +14,7 @@ describe("products", () => {
     cy.get('[data-cy="product-price"]').type("3455");
     cy.get('[data-cy="product-brand"]').type("Test Brand");
     cy.get('[data-cy="product-category"]').type("Test Category");
-    cy.get('[data-cy="product-image"]').type("Testimageurl");
+    cy.get('[data-cy="product-image"]').type("https://btvwztqtmfjxvpmvtjue.supabase.co/storage/v1/object/sign/product-images/1black-sherman.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9kdWN0LWltYWdlcy8xYmxhY2stc2hlcm1hbi5qcGciLCJpYXQiOjE3MzcyMjI0NTQsImV4cCI6MTczNzgyNzI1NH0.PhkvBenOduALID6mhYktkr5_eXIhIqDXnM_QjaSTys8&t=2025-01-18T17%3A47%3A34.867Z");
     cy.get('[data-cy="product-description"]').type("This is a test product.");
     cy.get('[data-cy="product-create-button"]').click();
 
