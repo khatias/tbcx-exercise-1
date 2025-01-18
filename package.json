@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "test:e2e": "cypress open",
+    "test:e2e:ci": "cypress run",
     "lint": "next lint",
     "prepare": "husky"
   },
