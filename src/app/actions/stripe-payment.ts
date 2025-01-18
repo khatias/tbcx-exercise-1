@@ -57,8 +57,8 @@ export async function createCheckoutSession(
   };
 }
 
-export async function createPaymentIntent(
-  data: FormData
-): Promise<{ client_secret: string }> {
+export async function createPaymentIntent(): Promise<{
+  client_secret: string;
+}> {
   throw new Error("PaymentIntent is not used for subscriptions.");
 }

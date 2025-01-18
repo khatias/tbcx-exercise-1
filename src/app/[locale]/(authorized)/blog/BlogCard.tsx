@@ -1,3 +1,5 @@
+import React from "react";
+import Image from "next/image";
 import dislike from "../../../../assets/dislike.svg";
 import like from "../../../../assets/like.svg";
 import Link from "next/link";
@@ -44,17 +46,17 @@ export default function BlogCard({ blog }: BlogCardProps) {
         </div>
 
         <div className="flex items-center pt-4 gap-2">
-          <span className="flex gap-2">
+          <span className="flex gap-2 items-center">
             {blog.reactions.likes}
-            <img className="w-6" src={like.src} alt="like-icon" />
+            <Image src={like} alt="like-icon" width={24} height={24} />
           </span>
 
-          <span className="flex gap-2">
+          <span className="flex gap-2 items-center">
             {blog.reactions.dislikes}
-            <img className="w-6" src={dislike.src} alt="dislike-icon" />
+            <Image src={dislike} alt="dislike-icon" width={24} height={24} />
           </span>
 
-          <span className="flex gap-2">
+          <span className="flex gap-2 items-center">
             {blog.views}
             <svg
               className="w-6"

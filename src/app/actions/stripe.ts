@@ -33,7 +33,6 @@ export async function createCheckoutSession(
       ],
       ...(ui_mode === "hosted" && {
         success_url: `${origin}/${locale}/pricing/result?session_id={CHECKOUT_SESSION_ID}`,
-     
       }),
       ...(ui_mode === "embedded" && {
         return_url: `${origin}/${locale}/subscribe/embedded?session_id={CHECKOUT_SESSION_ID}`,
@@ -47,8 +46,8 @@ export async function createCheckoutSession(
   };
 }
 
-export async function createPaymentIntent(
-  data: FormData
-): Promise<{ client_secret: string }> {
+export async function createPaymentIntent(): Promise<{
+  client_secret: string;
+}> {
   throw new Error("PaymentIntent is not used for subscriptions.");
 }

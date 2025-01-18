@@ -1,4 +1,3 @@
-import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { ThemeProvider } from "next-themes";
 import "../globals.css";
 import React from "react";
@@ -8,24 +7,20 @@ export const metadata = {
   description: "A project assignment for TBCx",
 };
 
-interface RootLayoutProps{
-  children : React.ReactNode
+interface RootLayoutProps {
+  children: React.ReactNode;
 }
 
-export default function RootLayout({ children} : RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className=' h-full' >
-    <div className="flex flex-col min-h-full">
-          <ThemeProvider defaultTheme="system"  enableSystem  attribute="class">
+      <body className=" h-full">
+        <div className="flex flex-col min-h-full">
+          <ThemeProvider defaultTheme="system" enableSystem attribute="class">
             {children}
           </ThemeProvider>
-          </div>
+        </div>
       </body>
     </html>
   );
 }
-
-
-
-
