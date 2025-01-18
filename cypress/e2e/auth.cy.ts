@@ -3,7 +3,7 @@ describe("auth", () => {
     cy.visit("/");
     cy.get('[data-cy="login-in"]').click();
     cy.get('[data-cy="sign-up-link"]').click();
-    cy.get('[data-cy="signup-email-input"]').type("sikharulidzeeeaakhalimariam@gmail.com");
+    cy.get('[data-cy="signup-email-input"]').type("sikharulidzeeea34523akhalimariam@gmail.com");
     cy.get('[data-cy="signup-password-input"]').type("mariammariam1");
     cy.get('[data-cy="signup-submit-button"]').click();
     cy.url().should("include", "/login");
