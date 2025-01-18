@@ -1,6 +1,7 @@
+import React from "react";
 import { createClient } from "../../../../../utils/supabase/server";
-import { Product } from '@/src/types/products';
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 interface ProductPageProps {
   params: {
@@ -26,7 +27,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <div className="container m-auto">
       <div className="product-details flex flex-col items-center">
         <div className="image">
-          <img src={image} alt={name} className="max-w-lg w-full" />
+          <Image
+            src={image}
+            alt={name}
+            className="max-w-lg w-full"
+            width={500}
+            height={500}
+            objectFit="contain"
+          />
         </div>
         <div className="content mt-4">
           <h1 className="text-3xl font-bold">{name}</h1>

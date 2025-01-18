@@ -1,3 +1,4 @@
+import React from "react";
 import type { Stripe } from "stripe";
 import { stripe } from "../../../../../lib/stripe/stripe";
 import { createClient } from "@/src/utils/supabase/server";

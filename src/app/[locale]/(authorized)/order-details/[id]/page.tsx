@@ -1,3 +1,4 @@
+import React from "react";
 import { createClient } from "@/src/utils/supabase/server";
 import { notFound } from "next/navigation";
 import { FaShoppingCart, FaCheckCircle, FaCreditCard } from "react-icons/fa";

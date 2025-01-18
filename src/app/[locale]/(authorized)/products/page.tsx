@@ -1,3 +1,4 @@
+import React from "react";
 import { createClient } from "../../../../utils/supabase/server";
 import ProductCard from "../../../../components/ProductCard/ProductCard";
 
